@@ -107,12 +107,12 @@
                 <form action="/proyecto/views/administrador/docentes/index.php" method="POST">
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="nombreD" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreD" id="nombreD" required>
+                            <label style="color: rgb(0, 3, 44);" for="nombreD" class="text-start">&nbsp;Nombres: </label>
+                            <input type="text" class="form-control" name="nombreD" id="nombreD" placeholder ="Ingrese nombres" required>
                         </div>
                         <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="apellidoD" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" required>
+                            <label style="color: rgb(0, 3, 44);" for="apellidoD" class="text-start">&nbsp;Apellidos: </label>
+                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" placeholder ="Ingrese apellidos" required>
                         </div>
                         <div class="col-6 mt-2">
                             Tipo de documento:
@@ -125,7 +125,7 @@
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="documentoD" class="text-start">&nbsp;Numero de documento: </label>
-                            <input type="number" class="form-control" name="documentoD" id="documentoD" required>
+                            <input type="number" class="form-control" name="documentoD" id="documentoD" placeholder="Ingrese N° documento " required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="fechaND" class="text-start">&nbsp;Fecha de nacimiento: </label>
@@ -137,15 +137,15 @@
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="emailD" class="text-start">&nbsp;Correo Electronico: </label>
-                            <input type="email" class="form-control" name="emailD" id="emailD" placeholder="Ingrese telefeono" required>
+                            <input type="email" class="form-control" name="emailD" id="emailD" placeholder="Ingrese correo electronico" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="contraseñaD" class="text-start">&nbsp;Contraseña: </label>
                             <input type="password" class="form-control" name="contraseñaD" id="contraseñaD" placeholder="Ingrese contraseña" required>
                         </div>
                         <div class="col-12 mt-2">
-                        <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Acudiente: </label>
-                            <select class="form-select" name="listaMaterias" id="listaMaterias">
+                        <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Materias: </label>
+                            <select class="form-select select2" name="listaMaterias[]" id="listaMaterias[]" multiple="multiple">
                                 <?php
                                     foreach($Materias as $Materia){
                                 ?>
@@ -235,8 +235,12 @@
     </div>
 </div>
 
-<script>
-  function Eliminar(item, IdDocente) {
+<script> 
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+    function Eliminar(item, IdDocente) {
         $(`#fila${item}`).remove();
         if (confirm("Seguro que desea eliminar este campo")) {
             EliminarDB(IdDocente);
