@@ -237,6 +237,7 @@
 
 <script> 
     $(document).ready(function() {
+        fdf
         $('.select2').select2();
     });
 
