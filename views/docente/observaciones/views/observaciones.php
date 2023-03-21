@@ -1,28 +1,42 @@
 <div class="col-10 containerSection">
-    <h1>Observaciones</h1>
+    <h1 id="tituloObservaciones">Observaciones</h1>
     <div class="row">
         <div class="col-lg-10 col-md-9 col-sm-12" id="containerAlert">
             <?php
                 if($mensagge != ''){
             ?>
-                <div id="AlertEstudiante" class="alert <?php echo $tipoAlert; ?>">
+                <div id="AlertObservaciones" class="alert <?php echo $tipoAlert; ?>">
                     <?php echo $mensagge; ?>
                 </div>
                 <script>
                     setTimeout(() => {
-                        $('#AlertEstudiante').slideUp(100)
+                        $('#AlertObservaciones').slideUp(100)
                     }, 3000);
                 </script>
             <?php
                 }
             ?>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-12 text-end">
-            <!-- Boton del modal -->
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalAñadirEstudiante">
-                <i class="bi bi-plus-lg"></i> Estudiante
-            </button>
-        </div>
+    </div>
+    <div class="container mt-3 mb-3">
+        <form action="/proyecto/views/docente/observaciones/index.php" method="POST">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12 col-md-12 mt-2">
+                    Grado:
+                    <select class="form-select" name="grado" id="grado">
+                        <?php
+                            foreach($Grados as $Grado){
+                                echo '<option value="'.$Grado['IdGrado'].'">'.$Grado['NombreGrado'].'</option>';
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-md-12">
+                    <input type="hidden" name="accion" id="accion" value="ConsultarEstudiantesGrado">
+                    <button type="submit" class="btn btn-success" style="margin-top: 31px;">Cargar</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     
@@ -34,54 +48,46 @@
                         <th>#</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
-                        <th>Tipo De Documento</th>
-                        <th>Numero Documento</th>
-                        <th>Fecha De Nacimiento</th>
-                        <th>Grado</th>
-                        <th>Acudiente</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="listaE">
                     <?php
                         $cont = 0;
-                        foreach ($Estudiantes as $Estudiante) {
-                            $cont++;
-                            $Documento = $Estudiante['NDocumentoEstudiante'];
-                            echo '<tr id="fila'.$cont.'">'
+                        if($Estudiantes){
+                            foreach ($Estudiantes as $Estudiante) {
+                                $cont++;
+                                $Documento = $Estudiante['NDocumentoEstudiante'];
+                                echo '<tr id="fila'.$cont.'">'
                     ?>
                                 <td><?php echo $cont; ?></td>
                                 <td><?php echo $Estudiante['NombresEstudiante'];?></td>
                                 <td><?php echo $Estudiante['ApellidosEstudiante'];?></td>
-                                <td><?php echo $Estudiante['TipoDocumentoEstudiante'];?></td>
-                                <td><?php echo $Documento;?></td>
-                                <td><?php echo $Estudiante['FechaNacimientoEstudiante'];?></td>
-                                <td><?php echo $Estudiante['GradoEstudiante'];?></td>
-                                <td><?php echo $Estudiante['NombresAcudiente'].' '.$Estudiante['ApellidosAcudiente'];?></td>
                                 <td>
                                     <input type="hidden" name="idEstudiante" id="idEstudiante" value="<?php echo $Estudiante['IdEstudiante'];?>">
-                                    <button type="button" class="btn btn-outline-danger p-1 pt-0 pb-0"
-                                    onclick="Eliminar(<?= $cont;?>,<?= $Documento; ?>)">
-                                        <i class="bi bi-trash"></i>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-primary p-1 p-1 pt-0 pb-0 ConsultarObservacionesEstudiante"
+                                        data-id_estudiante="<?php echo $Estudiante['IdEstudiante'];?>"
+                                        data-nombre_estudiante="<?php echo $Estudiante['NombresEstudiante'].' '.$Estudiante['ApellidosEstudiante'];?>"
+                                        data-tipo_documento="<?php echo $Estudiante['TipoDocumentoEstudiante'];?>"
+                                        data-documento="<?php echo $Estudiante['NDocumentoEstudiante'];?>"
+                                        data-grado="<?php echo $Estudiante['GradoEstudiante'];?>"
+                                    >
+                                        <abbr title="Ver"><i class="bi bi-eye-fill"></i></abbr>
                                     </button>
                                     <button 
                                         type="button" 
-                                        class="btn btn-outline-primary p-1 p-1 pt-0 pb-0 editarEstudiante"
-                                        data-nombre="<?php echo $Estudiante['NombresEstudiante'];?>"
-                                        data-apellido="<?php echo $Estudiante['ApellidosEstudiante'];?>"
-                                        data-tipo_documento="<?php echo $Estudiante['TipoDocumentoEstudiante'];?>"
-                                        data-documento="<?php echo $Documento;?>"
-                                        data-fecha_nacimiento="<?php echo $Estudiante['FechaNacimientoEstudiante'];?>"
-                                        data-grado="<?php echo $Estudiante['GradoEstudiante'];?>"
+                                        class="btn btn-outline-success p-1 p-1 pt-0 pb-0 AñadirObservacionesEstudiante"
+                                        data-nombreestudiante="<?php echo $Estudiante['NombresEstudiante']." ".$Estudiante['ApellidosEstudiante'];?>"
                                         data-id_estudiante="<?php echo $Estudiante['IdEstudiante'];?>"
-                                        data-id_acudiente="<?php echo $Estudiante['idAcudiente'];?>"
-
                                     >
-                                        <i class="bi bi-pencil-square"></i>
+                                        <abbr title="Agregar"><i class="bi bi-plus-lg"></i></abbr>
                                     </button>
                                 </td>
                             </tr>
                     <?php
+                            }
                         }
                     ?>
                 </tbody>
@@ -91,73 +97,94 @@
 
 </div>
 
-<!-- Modal crear estudiante -->
-<div class="modal fade" id="ModalAñadirEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<!-- Modal crear observacion -->
+<div class="modal fade" id="ModalAñadirObservacion" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Matricular Estudiante</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar observación</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/proyecto/views/administrador/estudiantes/index.php" method="POST">
+                <form id="FormAñadirObservacionesEstudiante" action="/proyecto/views/docente/observaciones/index.php" method="POST">
                     <div class="row justify-content-center">
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="nombreE" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreE" id="nombreE" required>
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="NombreEstudiante" class="text-start">&nbsp;Nombre: </label>
+                            <input type="text" class="form-control" name="NombreEstudiante" id="NombreEstudiante" disabled>
                         </div>
                         <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="apellidoE" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoE" id="apellidoE" required>
+                            Tipo:
+                            <select class="form-select" name="tipo" id="tipo" required>
+                                <option value="Disciplinaria">Disciplinaria</option>
+                            </select>
                         </div>
                         <div class="col-6 mt-2">
-                            Tipo de documento:
-                            <select class="form-select" name="listaDocumentosE" id="listaDocumentosE">
-                                <option value="Cedula de ciudadania">Cedula de ciudadania</option>
-                                <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                <option value="Cedula Extranjera">Cedula Extranjera</option>
-                                <option value="Pasaporte">Pasaporte</option>
-                        </select>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="documentoE" class="text-start">&nbsp;Numero de documento: </label>
-                            <input type="number" class="form-control" name="documentoE" id="documentoE" required>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="fechaNE" class="text-start">&nbsp;Fecha de nacimiento: </label>
-                            <input type="date" class="form-control" name="fechaNE" id="fechaNE" placeholder="Ingrese fecha de nacimiento" required>
-                        </div>
-                        <div class="col-6 mt-2">
-                        <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grado: </label>
-                            <select class="form-select" name="listaGrados" id="listaGrados">
-                                <option value="Peescolar">  Peescolar</option>
-                                <option value="Primero">Primero</option>
-                                <option value="Segundo">Segundo</option>
-                                <option value="Tercero">Tercero</option>
-                                <option value="Cuarto">Cuarto</option>
-                                <option value="Quinto">Quinto</option>
-                                <option value="Sexto">Sexto</option>
-                                <option value="Septimo">Septimo</option>
-                                <option value="Octavo">Octavo</option>
-                                <option value="Noveno">Noveno</option>
-                                <option value="Decimo">Decimo</option>
-                                <option value="Once">Once</option>
-                        </select>
+                            Seguimiento:
+                            <input class="form-control" name="seguimiento" id="seguimiento" value="<?php echo $_SESSION['Usuario'];?>" disabled>
                         </div>
                         <div class="col-12 mt-2">
-                        <label style="color: rgb(0, 3, 44);" for="listaAcudientes" class="text-start">&nbsp;Acudiente: </label>
-                            <select class="form-select" name="listaAcudientes" id="listaAcudientes">
-                                <?php
-                                    foreach($Acudientes as $Acudiente){
-                                ?>
-                                <option value="<?php echo $Acudiente['IdAcudiente']; ?>"><?php echo $Acudiente['NombresAcudiente']." ".$Acudiente['ApellidosAcudiente']; ?></option>
-                                <?php
-                                    }
-                                ?>
-                        </select>
+                            <label style="color: rgb(0, 3, 44);" for="observacion" class="text-start">&nbsp;Observacion: </label>
+                            <textarea type="text" class="form-control" name="observacion" id="observacion" style="max-width: 100%; min-width: 100%; max-height: 70px; min-height: 70px;" required></textarea>
                         </div>
-                        <input type="hidden" name="accion" value="crearEstudiante">
-                        <button type="submit" class="btn btn-success mt-3 w-25">Matricular</button>
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="versionEstudiante" class="text-start">&nbsp;Version del estudiante: </label>
+                            <textarea type="text" class="form-control" name="versionEstudiante" id="versionEstudiante" style="max-width: 100%; min-width: 100%; max-height: 70px; min-height: 70px;" required></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="compromiso" class="text-start">&nbsp;Compromiso: </label>
+                            <textarea type="text" class="form-control" name="compromiso" id="compromiso" style="max-width: 100%; min-width: 100%; max-height: 70px; min-height: 70px;" required></textarea>
+                        </div>
+                        <input type="hidden" name="IdDocente" value="<?php echo $_SESSION['Id'];?>">
+                        <input type="hidden" name="accion" value="añadirObservacion">
+                        <input type="hidden" name="idEstudiante" id="idEstudiante" value="">
+                        <button type="submit" class="btn btn-success mt-3 w-25">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Modificar observacion -->
+<div class="modal fade" id="ModalEditarObservacion" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar observación</h1>
+                <button type="button" class="btn-close" onclick="AbrirModalConsulta()"></button>
+            </div>
+            <div class="modal-body">
+                <form id="FormEditarObservacionEstudiante" action="/proyecto/views/docente/observaciones/index.php" method="POST">
+                    <div class="row justify-content-center">
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="NombreEstudiante" class="text-start">&nbsp;Nombre: </label>
+                            <input type="text" class="form-control" name="NombreEstudiante" id="NombreEstudianteEdit" disabled>
+                        </div>
+                        <div class="col-6 mt-2">
+                            Tipo:
+                            <select class="form-select" name="tipoEdit" id="tipoEdit" required>
+                                <option value="Disciplinaria">Disciplinaria</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mt-2">
+                            Seguimiento:
+                            <input class="form-control" name="seguimientoEdit" id="seguimientoEdit" value="<?php echo $_SESSION['Usuario'];?>" disabled>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="observacionEdit" class="text-start">&nbsp;Observacion: </label>
+                            <textarea type="text" class="form-control" name="observacionEdit" id="observacionEdit" style="max-width: 100%; min-width: 100%; max-height: 70px; min-height: 70px;" required></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="versionEstudianteEdit" class="text-start">&nbsp;Version del estudiante: </label>
+                            <textarea type="text" class="form-control" name="versionEstudianteEdit" id="versionEstudianteEdit" style="max-width: 100%; min-width: 100%; max-height: 70px; min-height: 70px;" required></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label style="color: rgb(0, 3, 44);" for="compromisoEdit" class="text-start">&nbsp;Compromiso: </label>
+                            <textarea type="text" class="form-control" name="compromisoEdit" id="compromisoEdit" style="max-width: 100%; min-width: 100%; max-height: 70px; min-height: 70px;" required></textarea>
+                        </div>
+                        <input type="hidden" name="IdDocenteEdit" id="IdDocenteEdit" value="<?php echo $_SESSION['Id'];?>">
+                        <input type="hidden" name="idObservacionEdit" id="idObservacionEdit" value="">
+                        <input type="hidden" name="idEstudianteEdit" id="idEstudianteEdit" value="">
+                        <button type="button" class="btn btn-success mt-3 w-25 envioModificacionObservacion">Editar</button>
                     </div>
                 </form>
             </div>
@@ -165,76 +192,39 @@
     </div>
 </div>
 
-<!-- Modal Editar estudiante -->
-<div class="modal fade" id="ModalEditarEstudiante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<!-- Modal Consultar observaciones estudiante -->
+<div class="modal fade" id="ModalConsultarObservacionesEstudiante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Estudiante</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Observador Estudiante</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="formEditarEstudiante" action="/proyecto/views/administrador/estudiantes/index.php" method="POST">
+                <form id="ObservadorEstudiante" action="/proyecto/views/administrador/estudiantes/index.php" method="POST">
                     <div class="row justify-content-center">
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="nombreE" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreE" id="nombreE" required>
+                        <div class="col-12 mt-2" id="datosEstudiante">
+
                         </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="apellidoE" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoE" id="apellidoE" required>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="listaDocumentosE" class="text-start">&nbsp;Tipo de documento: </label>
-                            <select class="form-select" name="listaDocumentosE" id="listaDocumentosE">
-                                <option value="">--Seleccionar--</option>
-                                <option value="Cedula de ciudadania">Cedula de ciudadania</option>
-                                <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                <option value="Cedula Extranjera">Cedula Extranjera</option>
-                                <option value="Pasaporte">Pasaporte</option>
-                        </select>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="documentoE" class="text-start">&nbsp;Numero de documento: </label>
-                            <input type="number" class="form-control" name="documentoE" id="documentoE" required>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="fechaNE" class="text-start">&nbsp;Fecha de nacimiento: </label>
-                            <input type="date" class="form-control" name="fechaNE" id="fechaNE" required>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grado: </label>
-                            <select class="form-select" name="listaGrados" id="listaGrados">
-                                <option value="">--seleccionar--</option>
-                                <option value="Peescolar">Peescolar</option>
-                                <option value="Primero">Primero</option>
-                                <option value="Segundo">Segundo</option>
-                                <option value="Tercero">Tercero</option>
-                                <option value="Cuarto">Cuarto</option>
-                                <option value="Quinto">Quinto</option>
-                                <option value="Sexto">Sexto</option>
-                                <option value="Septimo">Septimo</option>
-                                <option value="Octavo">Octavo</option>
-                                <option value="Noveno">Noveno</option>
-                                <option value="Decimo">Decimo</option>
-                                <option value="Once">Once</option>
-                        </select>
-                        </div>
-                        <div class="col-12 mt-2">
-                        <label style="color: rgb(0, 3, 44);" for="listaAcudientes" class="text-start">&nbsp;Acudiente: </label>
-                            <select class="form-select" name="listaAcudientes" id="listaAcudientes">
-                                <?php
-                                    foreach($Acudientes as $Acudiente){
-                                ?>
-                                <option value="<?php echo $Acudiente['IdAcudiente']; ?>"><?php echo $Acudiente['NombresAcudiente']." ".$Acudiente['ApellidosAcudiente']; ?></option>
-                                <?php
-                                    }
-                                ?>
-                        </select>
+                        <div class="col-12 mt-2" style="overflow-x: scroll;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Observacion</th>
+                                        <th>Version Estudiante</th>
+                                        <th>Compromiso</th>
+                                        <th>Seguimiento</th>
+                                        <th>Fecha</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ObservacionesEstudiante">
+                                </tbody>
+                            </table>
                         </div>
                         <input type="hidden" name="accion" value="editarEstudiante">
                         <input type="hidden" name="idEstudiante" id="idEstudiante" value="">
-                        <button type="submit" class="btn btn-success mt-3 w-25">Editar</button>
                     </div>
                 </form>
             </div>
@@ -243,19 +233,61 @@
 </div>
 
 <script>
-  function Eliminar(item, valor) {
-        $(`#fila${item}`).remove();
-        if (confirm("Seguro que desea eliminar este campo")) {
-            EliminarDB(valor);
-        } else {
-            window.location.href = url;
-        }
-    }
+    // ListaEstudiantes = $('#listaE')
+    ListaObservaciones = $('#ObservacionesEstudiante')
 
-    function EliminarDB(valor) {
+
+    // $('#listaGrados').change(function(){
+    //     grado = $('#listaGrados').val()
+    //     const DataParam = {
+    //         'accion': 'ConsultarEstudiantesGrado',
+    //         'grado': grado
+    //     };
+    //     const url = window.location.pathname
+    //     fetch(url,{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=utf-8'
+    //         },
+    //         body: JSON.stringify(DataParam)
+    //     })
+    //     .then(response => response.json())
+    //     .then(result => {
+    //         cont = 0
+    //         ListaEstudiantes.html('')
+    //         result.map((Estudiante,index)=>{
+    //             const htmloption = `<tr>
+    //             <td>${cont = cont + 1}</td>
+    //             <td>${Estudiante.NombresEstudiante}</td>
+    //             <td>${Estudiante.ApellidosEstudiante}</td>
+    //             <td>
+    //                 <button class="btn"><i class="bi-eye-fill"></i></button>
+    //             </td>
+    //             </tr>`
+    //             ListaEstudiantes.append(htmloption)
+    //         })
+
+    //     })
+    // })
+    $('.envioModificacionObservacion').on('click', function(){
+        const NombreEstudiante = $('#NombreEstudianteEdit').val()
+        const tipo = $('#tipoEdit').val()
+        const observacion = $('#observacionEdit').val()
+        const versionEstudiante = $('#versionEstudianteEdit').val()
+        const compromiso = $('#compromisoEdit').val()
+        const IdDocente = $('#IdDocenteEdit').val()
+        const idEstudiante = $('#idEstudianteEdit').val()
+        const idObservacion = $('#idObservacionEdit').val()
+
         const DataParam = {
-            'accion': 'eliminar',
-            'documentoEstudiante': valor
+            'accion': 'EditarObservacion',
+            'idEstudiante': idEstudiante,
+            'tipo' : tipo,
+            'observacion' : observacion,
+            'versionEstudiante' : versionEstudiante,
+            'compromiso' : compromiso,
+            'seguimiento' : IdDocente,
+            'idObservacion' : idObservacion
         };
         const url = window.location.pathname
         fetch(url,{
@@ -267,45 +299,237 @@
         })
         .then(response => response.json())
         .then(result => {
-            console.log(result)
-            let msg = '';
-            if(result.error){
-                msg = `<div id="AlertEstudiante" class="alert alert-danger">${result.error}</div>`
-            }else if(result.success){
-                msg = `<div id="AlertEstudiante" class="alert alert-success">${result.success}</div>`
+            const DataParam = {
+                'accion': 'ConsultarObservacionesEstudiante',
+                'IdEstudiante': idEstudiante
             }
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(DataParam)
+            })
+            .then(response => response.json())
+            .then(result => {
+                ListaObservaciones.html('')
+                let cont = 0
+                result.map((Observacion,index)=>{
+                    const DataParam = {
+                        'accion': 'ConsultarDocente',
+                        'IdDocente': `${Observacion.Seguimiento}`
+                    }
+                    fetch(url,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify(DataParam)
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        result.map((Docente,index)=>{
+                            cont++
+                            const NombreDocente = `${Docente.NombresDocente} ${Docente.ApellidosDocente}`
+                            const htmloption = `
+                                <tr id="Fila${cont}">
+                                    <td style="font-size: 11px;"><b>${Observacion.Tipo}</b></td>
+                                    <td style="font-size: 11px;">${Observacion.Observacion}</td>
+                                    <td style="font-size: 11px;">${Observacion.VersionEstudiante}</td>
+                                    <td style="font-size: 11px;">${Observacion.Compromiso}</td>
+                                    <td style="font-size: 12px;">${NombreDocente}</td>
+                                    <td>${Observacion.Fecha}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-primary p-1 pt-0 pb-0"
+                                        onclick="editarObservacion('${NombreEstudiante}',${Observacion.id},${Observacion.IdEstudiante},'${Observacion.Tipo}',
+                                        '${Observacion.Observacion}','${Observacion.VersionEstudiante}','${Observacion.Compromiso}')">
+                                            <abbr title="Editar"><i class="bi bi-pencil-square"></i></abbr>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger p-1 pt-0 pb-0"
+                                        onclick="Eliminar(${cont},${Observacion.id})">
+                                                <abbr title="Eliminar"><i class="bi bi-trash"></i></abbr>
+                                        </button>
+                                    </td>
+                                </tr>
+                            ` 
+                            ListaObservaciones.append(htmloption)
+                        })
+                    })
+                })
+            })
+            alert(result['success'])
+        })
+        
+        $('#ModalConsultarObservacionesEstudiante').modal('show')
+        $('#ModalEditarObservacion').modal('hide')
+    })
 
-            $('#containerAlert').html(msg)
-            setTimeout(() => {
-                $('#AlertEstudiante').slideUp(100)
-                location.reload();
-            }, 3000);
+    $('.ConsultarObservacionesEstudiante').on('click', function(){
+        const IdEstudiante = $(this).data('id_estudiante')
+        const NombreEstudiante = $(this).data('nombre_estudiante')
+        const TipoDocumento = $(this).data('tipo_documento')
+        const Documento = $(this).data('documento')
+        const Grado = $(this).data('grado')
+
+        const DataParame = {
+            'accion': 'ConsultarGrado',
+            'IdGrado': Grado
+        }
+        const url = window.location.pathname
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(DataParame)
+        })
+        .then(response => response.json())
+        .then(result => {
+            result.map((Grado,index)=>{
+                const grado = `${Grado.NombreGrado}`
+                const datos = $('#datosEstudiante')
+                datos.html('')
+                var html = `<h6>Nombre: ${NombreEstudiante}</h6>
+                        <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de documento</th>
+                                        <th>Numero documento</th>
+                                        <th>Grado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${TipoDocumento}</td>
+                                        <td>${Documento}</td>
+                                        <td>${grado}</td>
+                                    </tr>
+                            
+                `
+                datos.append(html)
+            })
+        })
+
+        const DataParam = {
+            'accion': 'ConsultarObservacionesEstudiante',
+            'IdEstudiante': IdEstudiante
+        }
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(DataParam)
+        })
+        .then(response => response.json())
+        .then(result => {
+            ListaObservaciones.html('')
+            let cont = 0
+            result.map((Observacion,index)=>{
+                const DataParam = {
+                    'accion': 'ConsultarDocente',
+                    'IdDocente': `${Observacion.Seguimiento}`
+                }
+                fetch(url,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(DataParam)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    result.map((Docente,index)=>{
+                        cont++
+                        const NombreDocente = `${Docente.NombresDocente} ${Docente.ApellidosDocente}`
+                        const htmloption = `
+                            <tr id="Fila${cont}">
+                                <td style="font-size: 11px;"><b>${Observacion.Tipo}</b></td>
+                                <td style="font-size: 11px;">${Observacion.Observacion}</td>
+                                <td style="font-size: 11px;">${Observacion.VersionEstudiante}</td>
+                                <td style="font-size: 11px;">${Observacion.Compromiso}</td>
+                                <td style="font-size: 12px;">${NombreDocente}</td>
+                                <td>${Observacion.Fecha}</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-primary p-1 pt-0 pb-0"
+                                    onclick="editarObservacion('${NombreEstudiante}',${Observacion.id},${Observacion.IdEstudiante},'${Observacion.Tipo}',
+                                    '${Observacion.Observacion}','${Observacion.VersionEstudiante}','${Observacion.Compromiso}')">
+                                        <abbr title="Editar"><i class="bi bi-pencil-square"></i></abbr>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger p-1 pt-0 pb-0"
+                                    onclick="Eliminar(${cont},${Observacion.id})">
+                                            <abbr title="Eliminar"><i class="bi bi-trash"></i></abbr>
+                                    </button>
+                                </td>
+                            </tr>
+                        ` 
+                        ListaObservaciones.append(htmloption)
+                    })
+                })
+            })
+        })
+          // mostrar modal
+          $('#ModalConsultarObservacionesEstudiante').modal('show')
+    })
+    
+    $('.AñadirObservacionesEstudiante').on('click', function(){
+        const IdEstudiante = $(this).data('id_estudiante')
+        const NombreEstudiante = $(this).data('nombreestudiante')
+        
+        // Asignar valores a los campos del form
+        $('#FormAñadirObservacionesEstudiante').find('#idEstudiante').val(IdEstudiante)
+        $('#FormAñadirObservacionesEstudiante').find('#NombreEstudiante').val(NombreEstudiante)
+
+        // mostrar modal
+        $('#ModalAñadirObservacion').modal('show')
+    })
+
+    function Eliminar(item, valor) {
+        if (confirm("Seguro que desea eliminar este campo")) {
+            $(`#Fila${item}`).remove();
+            EliminarDB(valor);
+        } else {
+        }
+    }
+
+    function EliminarDB(valor) {
+        const DataParam = {
+            'accion': 'eliminarObservacion',
+            'idObservacion': valor
+        };
+        const url = window.location.pathname
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(DataParam)
+        })
+        .then(response => response.json())
+        .then(result => {
+            alert(result['success'])
+            
         })
     
     }
     
-    $('.editarEstudiante').on('click', function(){
-        const nombreEstudiante = $(this).data('nombre')
-        const apellidoEstudiante = $(this).data('apellido')
-        const tipoDocumento = $(this).data('tipo_documento')
-        const documento = $(this).data('documento')
-        const fechaNacimiento = $(this).data('fecha_nacimiento')
-        const grado = $(this).data('grado')
-        const IdEstudiante = $(this).data('id_estudiante')
-        const IdAcudiente = $(this).data('id_acudiente')
-        console.log(nombreEstudiante, apellidoEstudiante, tipoDocumento, documento, fechaNacimiento, grado, IdEstudiante, IdAcudiente);
+    function editarObservacion(NombreEstudiante,idObservacion,idEstudiante,tipo,observacion,version,compromiso){
         
         // Asignar valores a los campos del form
-        $('#formEditarEstudiante').find('#nombreE').val(nombreEstudiante)
-        $('#formEditarEstudiante').find('#apellidoE').val(apellidoEstudiante)
-        $('#formEditarEstudiante').find('#listaDocumentosE').val(tipoDocumento)
-        $('#formEditarEstudiante').find('#documentoE').val(documento)
-        $('#formEditarEstudiante').find('#fechaNE').val(fechaNacimiento)
-        $('#formEditarEstudiante').find('#listaGrados').val(grado)
-        $('#formEditarEstudiante').find('#idEstudiante').val(IdEstudiante)
-        $('#formEditarEstudiante').find('#listaAcudientes').val(IdAcudiente)
+        $('#FormEditarObservacionEstudiante').find('#NombreEstudianteEdit').val(NombreEstudiante)
+        $('#FormEditarObservacionEstudiante').find('#tipoEdit').val(tipo)
+        $('#FormEditarObservacionEstudiante').find('#observacionEdit').val(observacion)
+        $('#FormEditarObservacionEstudiante').find('#versionEstudianteEdit').val(version)
+        $('#FormEditarObservacionEstudiante').find('#compromisoEdit').val(compromiso)
+        $('#FormEditarObservacionEstudiante').find('#idObservacionEdit').val(idObservacion)
+        $('#FormEditarObservacionEstudiante').find('#idEstudianteEdit').val(idEstudiante)
 
         // mostrar modal
-        $('#ModalEditarEstudiante').modal('show')
-    })
+        $('#ModalEditarObservacion').modal('show')
+        $('#ModalConsultarObservacionesEstudiante').modal('hide')
+    }
+    function AbrirModalConsulta(){
+        $('#ModalConsultarObservacionesEstudiante').modal('show')
+        $('#ModalEditarObservacion').modal('hide')
+    }
 </script>

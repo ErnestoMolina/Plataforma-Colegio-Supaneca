@@ -42,7 +42,5 @@
     }
     include('../layauts/plantillaInicio.php');
 
-    $Administradores = [];
-    $Administradores = $AdministradorCTR->ConsultarAdministrador($nombre);
     // print_r($Administradores);
     include('./views/vistaGeneral.php');

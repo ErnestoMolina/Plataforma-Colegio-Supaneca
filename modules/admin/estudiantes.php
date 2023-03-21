@@ -15,7 +15,7 @@
                     FROM estudiantes E
                     INNER JOIN acudientes A ON A.IdAcudiente = E.idAcudiente";
             if($Filtro){
-                $sql .= " WHERE GradoEstudiante= '{$Filtro['grado']}'";
+                $sql .= " WHERE GradoEstudiante= {$Filtro['grado']}";
             }
             $resultset = $this->DB->query($sql);
          
@@ -68,15 +68,15 @@
             }
 
             $sql = "INSERT INTO estudiantes (NombresEstudiante,apellidosEstudiante,tipoDocumentoEstudiante,NDocumentoEstudiante,FechaNacimientoEstudiante,GradoEstudiante,idAcudiente)
-                    VALUES('".$DataRow['nombreE']."','".$DataRow['apellidoE']."','".$DataRow['listaDocumentosE']."','".$DataRow['documentoE']."','".$DataRow['fechaNE']."','".$DataRow['listaGrados']."','".$DataRow['listaAcudientes']."');";
+                    VALUES('".$DataRow['nombreE']."','".$DataRow['apellidoE']."','".$DataRow['listaDocumentosE']."','".$DataRow['documentoE']."','".$DataRow['fechaNE']."',".$DataRow['listaGrados'].",'".$DataRow['listaAcudientes']."');";
             
             $resultset = $this->DB->query($sql);
             if($resultset === true){
                 $response['success'] = 'Se ha realizado la matricula Exitosamente';
             }else{
-                $response['Error'] = 'Error al realizar la matricula.';
+                $response['error'] = 'Error al realizar la matricula.';
             }
-
+            
             return $response;
         }
 
@@ -110,7 +110,7 @@
             tipoDocumentoEstudiante = '".$DataRow['listaDocumentosE']."',
             NDocumentoEstudiante = ".$DataRow['documentoE'].",
             FechaNacimientoEstudiante = '".$DataRow['fechaNE']."',
-            GradoEstudiante = '".$DataRow['listaGrados']."',
+            GradoEstudiante = ".$DataRow['listaGrados'].",
             idAcudiente = '".$DataRow['listaAcudientes']."'
             WHERE IdEstudiante= ".$DataRow['idEstudiante'].";";
 
@@ -118,7 +118,7 @@
             if($resultset === true){
                 $response['success'] = 'Se ha actualizado Exitosamente';
             }else{
-                $response['Error'] = 'Lo sentimos, el numero de documento ya existe.';
+                $response['error'] = 'Lo sentimos, el numero de documento ya existe.';
             }
 
             return $response;

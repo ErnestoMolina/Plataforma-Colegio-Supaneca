@@ -63,21 +63,39 @@
 
         public function ConsultaDocentes($Materia = false){
             $response = [];
-            $sql = "SELECT D.*, M.NombreMateria 
-            FROM docentes D
-            INNER JOIN materias M ON D.IdMateria = M.IdMateria";
 
             if($Materia){
-                $sql .= " WHERE M.NombreMateria = '{$Materia}'";
-            }
+                $sql = "SELECT IdMateria from materias where NombreMateria = '{$Materia}'";
+                $resultset1 = $this->DB->query($sql);
+                if($resultset1){
+                    while ($row = $resultset1->fetch_array()) {
+                        $response1[] = $row;
+                    }
+                }
+                foreach($response1 as $id){
 
-            $resultset = $this->DB->query($sql);
-         
-            if($resultset){
-                while ($row = $resultset->fetch_array()) {
-                    $response[] = $row;
+                    $sql2 = "SELECT * FROM docentes where idMateria like '%";
+                    $sql2 .='"'.$id['IdMateria'].'"%';
+                    $sql2 .= "'";
+                    $resultset = $this->DB->query($sql2);
+            
+                    if($resultset){
+                        while ($row = $resultset->fetch_array()) {
+                            $response[] = $row;
+                        }
+                    }
+                }
+            }else{
+                $sql = "SELECT * FROM docentes";
+                $resultset1 = $this->DB->query($sql);
+                if($resultset1){
+                    while ($row = $resultset1->fetch_array()) {
+                        $response[] = $row;
+                    }
                 }
             }
+
+            
 
             return $response;
         }
@@ -193,5 +211,6 @@
 
             return $response;
         }
+        
     }
 ?>

@@ -27,6 +27,8 @@
             <form action="/proyecto/views/administrador/perfil/index.php" method="POST">
                 <div class="row">
                 <?php
+                    $IdAdmistrador = $_SESSION['Id'];
+                    $Administradores = $AdministradorCTR->ConsultarAdministrador($IdAdmistrador);
                     foreach($Administradores as $Administrador){
                 ?>
                     <div class="col text-end">

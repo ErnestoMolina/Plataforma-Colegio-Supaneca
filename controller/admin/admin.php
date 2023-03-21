@@ -7,8 +7,8 @@
             $this->AdministradoresModel = new Administradores();
         }
 
-        public function ConsultarAdministrador($nombreAdmin){
-            return $this->AdministradoresModel->ConsultarAdministrador($nombreAdmin);
+        public function ConsultarAdministrador($IdAdmin){
+            return $this->AdministradoresModel->ConsultarAdministrador($IdAdmin);
         } 
 
         public function EditarDatos($DataRow){

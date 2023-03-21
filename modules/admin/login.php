@@ -33,18 +33,25 @@ class Login
         $resultset3 = $con->query($sql3);
         if ($resultset->num_rows > 0) {
             while ($fila = $resultset->fetch_assoc()) {
-                $_SESSION["Usuario"] = $fila["NombresAdministrador"];
+                echo $_SESSION = $fila;
+                echo $_SESSION['typeUser'] = 'Admin';
+                $_SESSION["Usuario"] = $fila["NombresAdministrador"].' '.$fila['ApellidosAdministrador'];
+                echo $_SESSION["Id"] = $fila["IdAdministrador"];
                 header('Location: ../../views/administrador/index.php');
             }
         } elseif($resultset2->num_rows > 0){
             while ($fila = $resultset2->fetch_assoc()) {
-                echo $_SESSION["Usuario"] = $fila["NombresDocente"];
+                echo $_SESSION = $fila;
+                echo $_SESSION['typeUser'] = 'Docente';
+                echo $_SESSION["Usuario"] = $fila["NombresDocente"].' '.$fila["ApellidosDocente"];
                 echo $_SESSION["Id"] = $fila["IdDocente"];
                 header('Location: ../../views/docente/index.php');
             }
         }elseif($resultset3->num_rows > 0){
             while ($fila = $resultset3->fetch_assoc()) {
-                $_SESSION["Usuario"] = $fila["NombresAcudiente"];
+                echo $_SESSION = $fila;
+                echo $_SESSION['typeUser'] = 'Acudiente';
+                $_SESSION["Usuario"] = $fila["NombresAcudiente"].' '.$fila['ApellidosAcudiente'];
                 header('Location: ../../views/acudiente/indexAcudiente.php');
             }
         }else{

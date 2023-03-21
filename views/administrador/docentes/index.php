@@ -42,7 +42,7 @@
         }
     }
 
-    $Docentes = $DocenteCTR->ConsultarDocentes();
+    $Docentes = $DocenteCTR->ConsultarDocentes('','D.*');
     $Materias = $MateriaCTR->ConsultarMaterias();
 
     include('./views/vistaGeneral.php');

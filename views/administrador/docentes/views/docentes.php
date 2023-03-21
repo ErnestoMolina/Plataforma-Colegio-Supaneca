@@ -59,7 +59,19 @@
                                 <td><?php echo $Docente['FechaNacimientoDocente'];?></td>
                                 <td><?php echo $Docente['TelefonoDocente'];?></td>
                                 <td><?php echo $Docente['CorreoElectronicoDocente'];?></td>
-                                <td><?php echo $Docente['NombreMateria'];?></td>
+                                <td>
+                                    <div class="col-12 d-flex">
+                                        <?php
+                                            $IdMaterias = [];
+                                            if ($Docente['idMateria'] != '') {
+                                                foreach ($Docente['idMateria'] as $Materia) {
+                                                    array_push($IdMaterias, $Materia['IdMateria']);
+                                                    echo "<div class='tagMateria'>{$Materia['NombreMateria']}</div>";
+                                                };
+                                            }
+                                        ?>
+                                    </div>
+                                </td>
                                 <td>
                                     <input type="hidden" name="idDocente" id="idDocente" value="<?php echo $Docente['IdDocente'];?>">
                                     <button type="button" class="btn btn-outline-danger p-1 pt-0 pb-0"
@@ -78,7 +90,7 @@
                                         data-email="<?php echo $Docente['CorreoElectronicoDocente'];?>"
                                         data-contraseña="<?php echo $Docente['ContraseñaDocente'];?>"
                                         data-id_docente="<?php echo $Docente['IdDocente'];?>"
-                                        data-materia="<?php echo $Docente['idMateria'];?>"
+                                        data-materia="<?php echo str_replace('"','',json_encode($IdMaterias));?>"
 
                                     >
                                         <i class="bi bi-pencil-square"></i>
@@ -96,7 +108,7 @@
 </div>
 
 <!-- Modal crear Docente -->
-<div class="modal fade" id="ModalAñadirDocente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ModalAñadirDocente" role="dialog" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -105,6 +117,7 @@
             </div>
             <div class="modal-body">
                 <form action="/proyecto/views/administrador/docentes/index.php" method="POST">
+                    
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreD" class="text-start">&nbsp;Nombres: </label>
@@ -143,17 +156,17 @@
                             <label style="color: rgb(0, 3, 44);" for="contraseñaD" class="text-start">&nbsp;Contraseña: </label>
                             <input type="password" class="form-control" name="contraseñaD" id="contraseñaD" placeholder="Ingrese contraseña" required>
                         </div>
-                        <div class="col-12 mt-2">
-                        <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Materias: </label>
-                            <select class="form-select select2" name="listaMaterias[]" id="listaMaterias[]" multiple="multiple">
+                        <div class="col-12 mt-2 mb-2">
+                            <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Materias: </label>
+                            <select name="listaMaterias[]" id="listaMaterias" style="width: 100%;" multiple required>
                                 <?php
                                     foreach($Materias as $Materia){
                                 ?>
-                                <option value="<?php echo $Materia['IdMateria']; ?>"><?php echo $Materia['NombreMateria']; ?></option>
+                                    <option value="<?php echo $Materia['IdMateria']; ?>"><?php echo $Materia['NombreMateria']; ?></option>
                                 <?php
                                     }
                                 ?>
-                        </select>
+                            </select>
                         </div>
                         <input type="hidden" name="accion" value="crearDocente">
                         <button type="submit" class="btn btn-success mt-3 w-25">Agregar</button>
@@ -165,7 +178,7 @@
 </div>
 
 <!-- Modal Editar Docente -->
-<div class="modal fade" id="ModalEditarDocente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalEditarDocente" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -213,17 +226,17 @@
                             <label style="color: rgb(0, 3, 44);" for="contraseñaD" class="text-start">&nbsp;Contraseña: </label>
                             <input type="password" class="form-control" name="contraseñaD" id="contraseñaD" placeholder="Ingrese contraseña" required>
                         </div>
-                        <div class="col-12 mt-2">
-                        <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Acudiente: </label>
-                            <select class="form-select" name="listaMaterias" id="listaMaterias">
+                        <div class="col-12 mt-2 mb-2">
+                            <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Materias: </label>
+                            <select name="listaMaterias[]" id="listaMateriasE" style="width: 100%;" multiple required>
                                 <?php
                                     foreach($Materias as $Materia){
                                 ?>
-                                <option value="<?php echo $Materia['IdMateria']; ?>"><?php echo $Materia['NombreMateria']; ?></option>
+                                    <option value="<?php echo $Materia['IdMateria']; ?>"><?php echo $Materia['NombreMateria']; ?></option>
                                 <?php
                                     }
                                 ?>
-                        </select>
+                            </select>
                         </div>
                         <input type="hidden" name="accion" value="editarDocente">
                         <input type="hidden" name="idDocente" id="idDocente" value="">
@@ -237,8 +250,19 @@
 
 <script> 
     $(document).ready(function() {
-        fdf
-        $('.select2').select2();
+        $('#ModalAñadirDocente').on('show.bs.modal', function(){
+            $('#listaMaterias').select2({
+                dropdownParent: $('#ModalAñadirDocente .modal-body')
+            });
+        })
+    });
+
+    $(document).ready(function() {
+        $('#ModalEditarDocente').on('show.bs.modal', function(){
+            $('#listaMateriasE').select2({
+                dropdownParent: $('#ModalEditarDocente .modal-body')
+            });
+        })
     });
 
     function Eliminar(item, IdDocente) {
@@ -306,7 +330,17 @@
         $('#formEditarDocente').find('#emailD').val(email)
         $('#formEditarDocente').find('#contraseñaD').val(contraseñaD)
         $('#formEditarDocente').find('#idDocente').val(IdDocente)
-        $('#formEditarDocente').find('#listaMaterias').val(IdMateria)
+
+        const optionMaterias = $('#formEditarDocente').find('#listaMateriasE option')
+        optionMaterias.map((index, Option) => {
+            const valOption = $(Option).val()
+            
+            if(IdMateria.includes(parseInt(valOption))){
+                $(Option).prop('selected', true)
+            }else{
+                $(Option).prop('selected', false)
+            }
+        })
 
         // mostrar modal
         $('#ModalEditarDocente').modal('show')

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION["Usuario"])){
+    if(!isset($_SESSION["Usuario"]) || (isset($_SESSION['typeUser']) && $_SESSION['typeUser'] != 'Docente')){
         header('location: http://localhost/proyecto/index.php');
     }
 ?>

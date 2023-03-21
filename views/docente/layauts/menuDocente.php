@@ -11,11 +11,11 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle ms-1 me-1" id="navbarDropdown" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                            Docente / <?php echo $_SESSION['Usuario'] ?>
+                            Docente /   <?php echo $_SESSION['Usuario'];?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" id="dropdown" aria-labelledby="navbarDropdown">
                             <li>
-                                <a href="#" class="dropdown-item">Mi Perfil</a>
+                                <a href="/proyecto/views/docente/perfil/index.php" class="dropdown-item">Mi Perfil</a>
                             </li>
                             <li>
                                 <a href="http://localhost/proyecto/modules/admin/cerrarSession.php" class="dropdown-item" style=" padding-top:3px;">
@@ -43,30 +43,15 @@
                         Inicio
                     </a>
                 </li>
-                <li class="col-12 containerSubList">
-                    <a href="#" class="mb-1 mt-1 subList collapseTitle">
+                <li class="col-12">
+                    <a href="/proyecto/views/docente/calificaciones/index.php" class="mb-1 mt-1">
                         Calificaciones
                     </a>
-                    <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
-                        <li>
-                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Sexto</a>
-                        </li>
-                        <li>
-                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Septimo</a>
-                        </li>
-                        <li>
-                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Octavo</a>
-                        </li>
-                        <li>
-                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Noveno</a>
-                        </li>
-                        <li>
-                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Decimo</a>
-                        </li>
-                        <li>
-                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Once</a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="col-12">
+                    <a href="/proyecto/views/docente/actividades/index.php" class="mb-1 mt-1">
+                        Actividades
+                    </a>
                 </li>
                 <li class="col-12">
                     <a href="/proyecto/views/docente/asistencias/index.php" class="mb-1 mt-1">
@@ -93,6 +78,11 @@
         <li class="col-12">
             <a href="/proyecto/views/docente/calificaciones/index.php" class="mb-1 mt-1">
                 Calificaciones
+            </a>
+        </li>
+        <li class="col-12">
+            <a href="/proyecto/views/docente/actividades/index.php" class="mb-1 mt-1">
+                Actividades
             </a>
         </li>
         <li class="col-12">

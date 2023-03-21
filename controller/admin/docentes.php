@@ -8,8 +8,8 @@
                 $this->DocentesModel = new Docentes();
             }
 
-        public function ConsultarDocentes(){
-            return $this->DocentesModel->ConsultarDocentes();
+        public function ConsultarDocentes($Filtro,$Campos){
+            return $this->DocentesModel->ConsultarDocentes($Filtro,$Campos);
         }
 
         public function consultarDocenteMateria($id){
@@ -55,6 +55,24 @@
 
                 if($InfoDocente){
                     $DataResponse = $this->DocentesModel->EditarDocente($DataPost);
+                }else{
+                    $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];
+                }
+            }
+
+            return $DataResponse;
+        }
+        public function EditarDocentePerfil($DataPost){
+            $DataResponse;
+            if(!$DataPost){
+                return ['error' => 'No se han ingresado datos'];
+            }
+            if(isset($DataPost['idDocente'])){
+                // validamos si el documento del Docente ya existe
+                $InfoDocente = $this->DocentesModel->ConsultarDocente('IdDocente', $DataPost['idDocente'],'TipoDocumentoDocente',$DataPost['listaDocumentosD']);
+
+                if($InfoDocente){
+                    $DataResponse = $this->DocentesModel->EditarDocentePerfil($DataPost);
                 }else{
                     $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];
                 }

@@ -1,8 +1,12 @@
 <?php
     include_once '../../../controller/admin/matricula.php';
-    $EstudianteCTR = new Estudiante();
     include_once '../../../controller/admin/acudientes.php';
+    include_once '../../../controller/admin/CargaAcademica.php';
+    include_once '../../../controller/docente/actividades.php';
+    $EstudianteCTR = new Estudiante();
     $AcudienteCTR = new Acudiente();
+    $CargaAcademicaCTR = new CargaAcademica();
+    $ActividadesCTR = new Actividades();
 
     $Titulo = 'Estudiantes';
     $mensagge = '';
@@ -42,8 +46,7 @@
 
         }
     }
-
+    $Grados = $CargaAcademicaCTR->ConsultaGrados();
     $Estudiantes = $EstudianteCTR->ConsultarEstudiantes();
     $Acudientes = $AcudienteCTR->ConsultarAcudientes();
-
     include('./views/vistaGeneral.php');

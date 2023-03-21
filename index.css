@@ -88,3 +88,20 @@ body{
     color:green;
     font-size:25px;
 }
+
+
+.tagMateria{
+    background-color: dodgerblue;
+    color: #fff;
+    border-radius: 7px;
+    padding: 4px;
+    margin: 2px;
+    display: grid;
+    place-content: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#datos tr{
+    border-color: 1px solid black;
+}

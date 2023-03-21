@@ -9,9 +9,9 @@
             $this->DB = $conexion->conectarDB();
         }
 
-        public function ConsultarAdministrador($nombreAdmin){
+        public function ConsultarAdministrador($IdAdmin){
             $response = [];
-            $sql = "SELECT * FROM administradores WHERE NombresAdministrador = '{$nombreAdmin}'";
+            $sql = "SELECT * FROM administradores WHERE IdAdministrador = '{$IdAdmin}'";
             $resultset = $this->DB->query($sql);
          
             if($resultset){
@@ -39,7 +39,7 @@
             
             $resultset = $this->DB->query($sql);
             if($resultset === true){
-                $response['success'] = 'Se ha actualizado Exitosamente, cierre he inicie session nuevamente.';
+                $response['success'] = 'Sus datos se han actualizado Exitosamente.';
             }else{
                 $response['Error'] = 'Lo sentimos, el numero de documento ya existe.';
             }

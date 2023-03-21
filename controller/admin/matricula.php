@@ -8,12 +8,12 @@
                 $this->EstudiantesModel = new Estudiantes();
             }
 
-        public function ConsultarEstudiantes(){
-            return $this->EstudiantesModel->ConsultarEstudiantes();
+        public function ConsultarEstudiantes($Filtro = false){
+            return $this->EstudiantesModel->ConsultarEstudiantes($Filtro);
         }
 
-        public function ConsultarEstudiantesGrado(){
-            return $this->EstudiantesModel->ConsultarEstudiantesGrado();
+        public function ConsultarEstudiantesGrado($Filtro = false){
+            return $this->EstudiantesModel->ConsultarEstudiantesGrado($Filtro);
         }
 
         public function ProcesarEstudiante($DataPost = false){
@@ -51,7 +51,7 @@
             }
             if(isset($DataPost['idEstudiante'])){
                 // validamos si el documento del estudiante ya existe
-                $InfoEstudiante = $this->EstudiantesModel->ConsultarEstudiante('IdEstudiante', $DataPost['idEstudiante']);
+                $InfoEstudiante = $this->EstudiantesModel->ConsultarEstudiante('NDocumentoEstudiante', $DataPost['documentoE'],'TipoDocumentoEstudiante',$DataPost['listaDocumentosE']);
 
                 if($InfoEstudiante){
                     $DataResponse = $this->EstudiantesModel->EditarEstudiante($DataPost);

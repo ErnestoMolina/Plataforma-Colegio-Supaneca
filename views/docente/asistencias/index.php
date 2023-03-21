@@ -1,10 +1,15 @@
 <?php
-    include_once '../../../controller/admin/matricula.php';
-    $EstudianteCTR = new Estudiante();
-    include_once '../../../controller/admin/acudientes.php';
-    $AcudienteCTR = new Acudiente();
+    include '../../../controller/docente/calificaciones.php';
+    include '../../../controller/docente/actividades.php';
+    include '../../../controller/docente/asistencias.php';
+    include '../../../controller/admin/materias.php';
+    include '../../../controller/admin/matricula.php';
+    $MateriasCTR = new Materia();
+    $ActividadesCTR = new Actividades();
+    $DocenteCTR = new Calificaciones();
+    $AsistenciasCTR = new Asistencias();
 
-    $Titulo = 'Estudiantes';
+    $Titulo = 'Asistencias';
     $mensagge = '';
     $tipoAlert = '';
 
@@ -12,8 +17,8 @@
     if(isset($_POST['accion']) || isset($dataRequest['accion'])){
         $accion = $_POST['accion'] ?? $dataRequest['accion'];
         switch($accion){
-            case 'crearEstudiante':
-                $response = $EstudianteCTR->ProcesarEstudiante($_POST);
+            case 'agregarInasistencia':
+                $response = $AsistenciasCTR->ProcesarInasistencia($_POST);
                 if(isset($response['error'])){
                     $mensagge = $response['error'];
                     $tipoAlert = "alert-danger";
@@ -21,15 +26,21 @@
                     $mensagge = $response['success'];
                     $tipoAlert = "alert-success";
                 }
+
+                
             break;
             case 'eliminar':
-                $response = $EstudianteCTR->EliminarEstudiante($dataRequest['documentoEstudiante']);
-
-                echo $response = json_encode($response);
-                return $response;
+                $response = $AsistenciasCTR->EliminarInasistencia($dataRequest['IdInasistencia']);
+                echo json_encode($response);
+                return false;
             break;
-            case 'editarEstudiante':
-                $response = $EstudianteCTR->EditarEstudiante($_POST);
+            case 'consultarEstudiantes':
+                $response = $AsistenciasCTR->consultarEstudiantes($dataRequest['idGrado']);
+                echo json_encode($response);
+                return false;
+            break;
+            case 'editarInasistencia':
+                $response = $AsistenciasCTR->EditarInasistencia($_POST);
                 if(isset($response['error'])){
                     $mensagge = $response['error'];
                     $tipoAlert = "alert-danger";
@@ -37,13 +48,12 @@
                     $mensagge = $response['success'];
                     $tipoAlert = "alert-success";
                 }
-
             break;
 
         }
     }
 
-    $Estudiantes = $EstudianteCTR->ConsultarEstudiantes();
-    $Acudientes = $AcudienteCTR->ConsultarAcudientes();
-
+    $Materias = $ActividadesCTR->consultarMaterias();
+    $Grados = $ActividadesCTR->consultarGrados();
+    $Inasistencias = $AsistenciasCTR->ConsultarInasistensias('','','','','','','','','','');
     include('./views/vistaGeneral.php');

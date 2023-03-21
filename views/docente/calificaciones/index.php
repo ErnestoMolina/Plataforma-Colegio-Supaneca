@@ -1,51 +1,41 @@
 <?php
     include_once '../../../controller/admin/matricula.php';
     $EstudianteCTR = new Estudiante();
-    include_once '../../../controller/admin/acudientes.php';
-    $AcudienteCTR = new Acudiente();
-    include '../../../controller/admin/docentes.php';
-    $DocenteCTR = new Docente();
+    include_once '../../../controller/docente/actividades.php';
+    $ActividadesCTR = new Actividades();
+    include '../../../controller/docente/calificaciones.php';
+    $DocenteCTR = new Calificaciones();
 
     $Titulo = 'Calificaciones';
     $mensagge = '';
     $tipoAlert = '';
+    $Grados = '';
+    $Actividades = '';
 
     $dataRequest = json_decode(file_get_contents("php://input"), true);
     if(isset($_POST['accion']) || isset($dataRequest['accion'])){
         $accion = $_POST['accion'] ?? $dataRequest['accion'];
         switch($accion){
-            case 'crearEstudiante':
-                $response = $EstudianteCTR->ProcesarEstudiante($_POST);
-                if(isset($response['error'])){
-                    $mensagge = $response['error'];
-                    $tipoAlert = "alert-danger";
-                }elseif($response['success']){
-                    $mensagge = $response['success'];
-                    $tipoAlert = "alert-success";
-                }
+            case 'consultarGradosMateria':
+                $Grados = $DocenteCTR->consultarGradosMateria($dataRequest);
+                echo json_encode($Grados);
+                return false;
             break;
-            case 'eliminar':
-                $response = $EstudianteCTR->EliminarEstudiante($dataRequest['documentoEstudiante']);
-
-                echo $response = json_encode($response);
-                return $response;
+            case 'consultarActividades':
+                $Actividades = $ActividadesCTR->ConsultarActividades($_POST);
             break;
-            case 'editarEstudiante':
-                $response = $EstudianteCTR->EditarEstudiante($_POST);
-                if(isset($response['error'])){
-                    $mensagge = $response['error'];
-                    $tipoAlert = "alert-danger";
-                }elseif($response['success']){
-                    $mensagge = $response['success'];
-                    $tipoAlert = "alert-success";
-                }
-
+            case 'CargarEstudiantes':
+                $Filtro = 'E.GradoEstudiante = '.$dataRequest['grado'];
+                $Estudiantes = $EstudianteCTR->ConsultarEstudiantes($Filtro);
+                echo json_encode($Estudiantes);
+                return false;
             break;
+            
 
         }
     }
-    $Materia = [];
-    $Estudiantes = $EstudianteCTR->ConsultarEstudiantes();
-    $Acudientes = $AcudienteCTR->ConsultarAcudientes(); 
-    $Materia = $DocenteCTR->consultarDocenteMateria();
+    
+    // $Estudiantes = $EstudianteCTR->ConsultarEstudiantes();
+    // $Acudientes = $AcudienteCTR->ConsultarAcudientes(); 
+    
     include('./views/vistaGeneral.php');

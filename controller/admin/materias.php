@@ -13,8 +13,8 @@
             return $this->MateriasModel->ConsultarMaterias();
         }
 
-        public function ConsultarMateria(){
-            return $this->MateriasModel->ConsultarMateria();
+        public function ConsultarMateria($Campo, $Valor){
+            return $this->MateriasModel->ConsultarMateria($Campo, $Valor);
         }
 
         public function ProcesarMateria($DataPost = false){
@@ -41,8 +41,9 @@
             if(!$IdMateria){
                 return ['error' => 'Error en la peticion intente nuevamente.'];
             }
-
-            $Filtro = "D.idMateria = {$IdMateria}";
+            $Filtro = "idMateria LIKE '%";
+            $Filtro .= '"'.$IdMateria.'"%';
+            $Filtro .= "'";
             return $this->DocentesModel->ConsultarDocentes($Filtro);
         }
 

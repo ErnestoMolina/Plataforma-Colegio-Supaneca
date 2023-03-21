@@ -11,7 +11,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle ms-1 me-1" id="navbarDropdown" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                            Administrador / <?php echo $nombre = $_SESSION['Usuario']; ?>
+                            Administrador / <?php echo $_SESSION['Usuario'];?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" id="dropdown" aria-labelledby="navbarDropdown">
                             <li>

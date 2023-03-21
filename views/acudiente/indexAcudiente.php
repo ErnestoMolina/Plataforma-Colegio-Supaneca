@@ -1,7 +1,8 @@
 <?php
     session_start();
-    if(!isset($_SESSION["Usuario"]))
-        header('location: ../../index.php');
+    if(!isset($_SESSION["Usuario"]) || (isset($_SESSION['typeUser']) && $_SESSION['typeUser'] != 'Acudiente')){
+        header('location: http://localhost/proyecto/index.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

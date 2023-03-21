@@ -65,11 +65,15 @@
                                 <?php
                                         }else{
                                             $consultaDocentes = $CargaAcademicaCTR->ConsultaDocentesID($grado[$valor]);
-                                            foreach($consultaDocentes as $Docentes){
-                                                $nombres = $Docentes['NombresDocente'];
-                                                $apellidos = $Docentes['ApellidosDocente'];
+                                            if($consultaDocentes){
+                                                foreach($consultaDocentes as $Docentes){
+                                                    $nombres = $Docentes['NombresDocente'];
+                                                    $apellidos = $Docentes['ApellidosDocente'];
+                                                }
+                                                echo '<td value="'.$grado[$valor].'">'.$nombres.' '.$apellidos.'</td>';
+                                            }else{
+                                                echo '<td value=""></td>';
                                             }
-                                            echo '<td value="'.$grado[$valor].'">'.$nombres.' '.$apellidos.'</td>';
                                         
                                         }
                                     }
@@ -124,7 +128,7 @@
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="DirectorGrado" class="text-start">&nbsp;Director de grado: </label>
-                            <select class="form-select" name="DirectorGrado" id="DirectorGrado">
+                            <select class="form-select" name="DirectorGrado" id="DirectorGrado" required>
                                 <?php
                                     $valor = '';
                                     $consultaDirectores = $CargaAcademicaCTR->ConsultaDocentes($valor);
@@ -150,9 +154,8 @@
                         ?>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="<?php echo $valor?>" class="text-start">&nbsp;<?php echo $valor; ?>: </label>
-                            <select class="form-select" name="<?php echo $valor?>" id="<?php echo $valor?>">
+                            <select class="form-select" name="<?php echo $valor?>" id="<?php echo $valor?>" required>
                                 <?php
-                                    $valor = '';
                                     $consultaDocentes = $CargaAcademicaCTR->ConsultaDocentes($valor);
                                     foreach($consultaDocentes as $Docentes){
                                 ?>

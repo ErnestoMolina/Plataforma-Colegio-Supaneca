@@ -56,7 +56,14 @@
                                 <td><?php echo $Estudiante['TipoDocumentoEstudiante'];?></td>
                                 <td><?php echo $Documento;?></td>
                                 <td><?php echo $Estudiante['FechaNacimientoEstudiante'];?></td>
-                                <td><?php echo $Estudiante['GradoEstudiante'];?></td>
+                                <td value="<?php echo $Estudiante['GradoEstudiante'];?>">
+                                    <?php
+                                        $NombreGrado = $ActividadesCTR->consultarGrado('IdGrado',$Estudiante['GradoEstudiante']);
+                                        foreach($NombreGrado as $nombre){
+                                            echo $nombre['NombreGrado'];
+                                        }
+                                    ?>
+                                </td>
                                 <td><?php echo $Estudiante['NombresAcudiente'].' '.$Estudiante['ApellidosAcudiente'];?></td>
                                 <td>
                                     <input type="hidden" name="idEstudiante" id="idEstudiante" value="<?php echo $Estudiante['IdEstudiante'];?>">
@@ -130,18 +137,11 @@
                         <div class="col-6 mt-2">
                         <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grado: </label>
                             <select class="form-select" name="listaGrados" id="listaGrados">
-                                <option value="Peescolar">  Peescolar</option>
-                                <option value="Primero">Primero</option>
-                                <option value="Segundo">Segundo</option>
-                                <option value="Tercero">Tercero</option>
-                                <option value="Cuarto">Cuarto</option>
-                                <option value="Quinto">Quinto</option>
-                                <option value="Sexto">Sexto</option>
-                                <option value="Septimo">Septimo</option>
-                                <option value="Octavo">Octavo</option>
-                                <option value="Noveno">Noveno</option>
-                                <option value="Decimo">Decimo</option>
-                                <option value="Once">Once</option>
+                                <?php
+                                    foreach($Grados as $Grado){
+                                        echo '<option value="'.$Grado['IdGrado'].'">'.$Grado['NombreGrado'].'</option>';
+                                    }
+                                ?>
                         </select>
                         </div>
                         <div class="col-12 mt-2">
@@ -203,21 +203,13 @@
                             <input type="date" class="form-control" name="fechaNE" id="fechaNE" required>
                         </div>
                         <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grado: </label>
-                            <select class="form-select" name="listaGrados" id="listaGrados">
-                                <option value="">--seleccionar--</option>
-                                <option value="Peescolar">Peescolar</option>
-                                <option value="Primero">Primero</option>
-                                <option value="Segundo">Segundo</option>
-                                <option value="Tercero">Tercero</option>
-                                <option value="Cuarto">Cuarto</option>
-                                <option value="Quinto">Quinto</option>
-                                <option value="Sexto">Sexto</option>
-                                <option value="Septimo">Septimo</option>
-                                <option value="Octavo">Octavo</option>
-                                <option value="Noveno">Noveno</option>
-                                <option value="Decimo">Decimo</option>
-                                <option value="Once">Once</option>
+                            <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grados: </label>
+                            <select class="form-select" name="listaGrados" id="listaGrados" required>
+                                <?php
+                                    foreach($Grados as $Grado){
+                                        echo '<option value="'.$Grado['IdGrado'].'">'.$Grado['NombreGrado'].'</option>';
+                                    }
+                                ?>
                         </select>
                         </div>
                         <div class="col-12 mt-2">

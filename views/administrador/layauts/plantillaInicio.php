@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION["Usuario"])){
+    if(!isset($_SESSION["Usuario"]) || (isset($_SESSION['typeUser']) && $_SESSION['typeUser'] != 'Admin')){
         header('location: http://localhost/proyecto/index.php');
     }
 ?>
@@ -13,14 +13,16 @@
     <title><?php echo $Titulo ?? 'inicio';?></title>
     <meta name="description" content="Pagina administrativa controlada por un administrador de la pagina.">
     <link rel="stylesheet" href="/proyecto/css/bootstrap.min.css">
-    <script src="/proyecto/js/bootstrap.bundle.min.js"></script>
-    <script src="/proyecto/js/jquery-3.6.1.min.js"></script>
     <link rel="stylesheet" href="/proyecto/index.css">
     <link rel="stylesheet" href="/proyecto/libs/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/proyecto/libs/select2/dist/css/select2.min.css">
+    
+    <script src="/proyecto/js/jquery-3.6.1.min.js"></script>
+    <script src="/proyecto/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/proyecto/libs/select2/dist/js/select2.min.js"></script>
+
     <script>
         $(function(){
             $("#tabla").DataTable({
