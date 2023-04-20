@@ -40,12 +40,19 @@
                     $tipoAlert = "alert-success";
                 }
             break;
+            case 'consultarGradosMateria':
+                $Grados = $DocenteCTR->consultarGradosMateria($dataRequest);
+                echo json_encode($Grados);
+                return false;
+            break;
+            case 'consultarActividades':
+                $Actividades = $ActividadesCTR->ConsultarActividades($_POST);
+            break;
         }
     }
     
     // $Estudiantes = $EstudianteCTR->ConsultarEstudiantes();
     // $Acudientes = $AcudienteCTR->ConsultarAcudientes(); 
     $Materias = $ActividadesCTR->consultarMaterias();
-    $Grados = $ActividadesCTR->consultarGrados();
-    $Actividades = $ActividadesCTR->ConsultarActividades('');
+    // $Actividades = $ActividadesCTR->ConsultarActividades();
     include('./views/vistaGeneral.php');

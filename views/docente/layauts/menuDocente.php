@@ -44,9 +44,22 @@
                     </a>
                 </li>
                 <li class="col-12">
-                    <a href="/proyecto/views/docente/calificaciones/index.php" class="mb-1 mt-1">
+                    <a href="/proyecto/views/docente/perfil/index.php" class="dropdown-item">
+                        Mi Perfil
+                    </a>
+                </li>
+                <li class="col-12 containerSubList">
+                    <a href="#" class="mb-1 mt-1 subList collapseTitle">
                         Calificaciones
                     </a>
+                    <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
+                        <li>
+                            <a href="/proyecto/views/docente/calificar/index.php" class="">Calificar</a>
+                        </li>
+                        <li>
+                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Calificaciones</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="col-12">
                     <a href="/proyecto/views/docente/actividades/index.php" class="mb-1 mt-1">
@@ -55,12 +68,17 @@
                 </li>
                 <li class="col-12">
                     <a href="/proyecto/views/docente/asistencias/index.php" class="mb-1 mt-1">
-                        Asistencia
+                        Inasistencia
                     </a>
                 </li>
                 <li class="col-12">
                     <a href="/proyecto/views/docente/observaciones/index.php" class="mb-1 mt-1">
                         Observaciones
+                    </a>
+                </li>
+                <li class="col-12">
+                    <a href="http://localhost/proyecto/modules/admin/cerrarSession.php" class="dropdown-item" style=" padding-top:3px;">
+                        Cerrar Sesion
                     </a>
                 </li>
             </ul>
@@ -75,11 +93,19 @@
                 Inicio
             </a>
         </li>
-        <li class="col-12">
-            <a href="/proyecto/views/docente/calificaciones/index.php" class="mb-1 mt-1">
-                Calificaciones
-            </a>
-        </li>
+        <li class="col-12 containerSubList">
+                    <a href="#" class="mb-1 mt-1 subList collapseTitle">
+                        Calificaciones
+                    </a>
+                    <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
+                        <li>
+                            <a href="/proyecto/views/docente/calificar/index.php" class="">Calificar</a>
+                        </li>
+                        <li>
+                            <a href="/proyecto/views/docente/calificaciones/index.php" class="">Consultar</a>
+                        </li>
+                    </ul>
+                </li>
         <li class="col-12">
             <a href="/proyecto/views/docente/actividades/index.php" class="mb-1 mt-1">
                 Actividades
@@ -87,7 +113,7 @@
         </li>
         <li class="col-12">
             <a href="/proyecto/views/docente/asistencias/index.php" class="mb-1 mt-1">
-                Asistencia
+                Inasistencia
             </a>
         </li>
         <li class="col-12">

@@ -15,9 +15,15 @@
                 if(isset($response['error'])){
                     $mensagge = $response['error'];
                     $tipoAlert = "alert-danger";
+                    if($_POST){
+                        $_POST = '';
+                    }
                 }elseif($response['success']){
                     $mensagge = $response['success'];
                     $tipoAlert = "alert-success";
+                    if($_POST){
+                        $_POST = '';
+                    }
                 }
             break;
             case 'validarEstudiantesAsociados':

@@ -1,12 +1,9 @@
 <?php
     class CargaAcademica{
-        // private $AcudientesModel;
         private $CargaAcademicaModel;
 
         public function __construct(){
-            // include_once '../../../modules/admin/acudientes.php';
             include_once '../../../modules/admin/CargaAcademica.php';
-            // $this->AcudientesModel = new Acudientes();
             $this->CargaAcademicaModel = new AsignacionAcademica();
         }
 
@@ -26,47 +23,6 @@
             return $this->CargaAcademicaModel->ConsultaDocentesID($IdDocente);
         }
 
-        // public function ConsultarAcudiente(){
-        //     return $this->AcudientesModel->ConsultarAcudiente();
-        // }
-
-        // public function ProcesarAcudiente($DataPost = false){
-        //     $DataResponse;
-        //     if(!$DataPost){
-        //         return ['error' => 'No se han ingresado datos'];
-        //     }
-
-        //     if(isset($DataPost['documentoA'])){
-        //         // validamos si el documento del acudiente ya existe
-        //         $InfoAcudiente = $this->AcudientesModel->ConsultarAcudiente('NDocumentoAcudiente', $DataPost['documentoA'],'TipoDocumentoAcudiente',$DataPost['listaDocumentosA']);
-
-        //         if(!$InfoAcudiente){
-        //             $DataResponse = $this->AcudientesModel->ProcesarAcudiente($DataPost);
-        //         }else{
-        //             $DataResponse = ['error' => 'El numero de documento ya existe.'];
-        //         }
-        //     }
-
-        //     return $DataResponse;
-        // }
-
-        // public function validarEstudiantesAsociados($IdAcudiente = false){
-        //     if(!$IdAcudiente){
-        //         return ['error' => 'Error en la peticion intente nuevamente.'];
-        //     }
-
-        //     $Filtro = "E.idAcudiente = {$IdAcudiente}";
-        //     return $this->EstudiantesModel->ConsultarEstudiantes($Filtro);
-        // }
-
-        // public function EliminarAcudiente($IdAcudiente = false){
-        //     if(!$IdAcudiente){
-        //         return ['error' => 'Error en la peticion intente nuevamente.'];
-        //     }
-
-        //     return $this->AcudientesModel->EliminarAcudiente($IdAcudiente);
-        // }
-
         public function EditarCargaAcademica($DataPost = false){
             $DataResponse;
             if(!$DataPost){
@@ -74,9 +30,28 @@
             }else{
                 $DataResponse = $this->CargaAcademicaModel->EditarCargaAcademica($DataPost);
             }
-            
 
             return $DataResponse;
+        }
+
+        public function ConsultarDirectores($DataPost){
+            if($DataPost){
+                $InfoDirector = $this->CargaAcademicaModel->ConsultarDirectores($DataPost);
+                // return print_r($InfoDirector);die;
+                if($InfoDirector){
+                    $Info = $this->CargaAcademicaModel->ConsultarDirectoresGrado($DataPost);
+                    if($Info){
+                        $response = ['permitir' => 'Docente ya Asignado a este grado.'];
+                    }else{
+                        $response = ['error' => 'El docente ya se encuentra asignado en otro grado como director.'];
+                    }
+                }else{
+                    $response = ['success' => 'Asignacion valida.'];
+                }
+            }else{
+                $response = ['error' => 'Error en la petición.'];
+            }
+            return $response;
         }
     }
 ?>

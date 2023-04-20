@@ -121,11 +121,11 @@
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreD" class="text-start">&nbsp;Nombres: </label>
-                            <input type="text" class="form-control" name="nombreD" id="nombreD" placeholder ="Ingrese nombres" required>
+                            <input type="text" class="form-control" name="nombreD" id="nombreD" onKeypress="VerificacionTextos()" placeholder ="Ingrese nombres" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="apellidoD" class="text-start">&nbsp;Apellidos: </label>
-                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" placeholder ="Ingrese apellidos" required>
+                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" onKeypress="VerificacionTextos()" placeholder ="Ingrese apellidos" required>
                         </div>
                         <div class="col-6 mt-2">
                             Tipo de documento:
@@ -190,11 +190,11 @@
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreD" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreD" id="nombreD" required>
+                            <input type="text" class="form-control" name="nombreD" id="nombreD" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="apellidoD" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" required>
+                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaDocumentosD" class="text-start">&nbsp;Tipo de documento: </label>
@@ -266,11 +266,9 @@
     });
 
     function Eliminar(item, IdDocente) {
-        $(`#fila${item}`).remove();
         if (confirm("Seguro que desea eliminar este campo")) {
+            $(`#fila${item}`).remove();
             EliminarDB(IdDocente);
-        } else {
-            location.reload();
         }
     }
 
@@ -345,4 +343,10 @@
         // mostrar modal
         $('#ModalEditarDocente').modal('show')
     })
+
+    function VerificacionTextos(){
+        if(!((event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32))){
+            event.preventDefault()
+        }
+    }
 </script>

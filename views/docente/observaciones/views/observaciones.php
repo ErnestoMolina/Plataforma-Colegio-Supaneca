@@ -488,7 +488,6 @@
         if (confirm("Seguro que desea eliminar este campo")) {
             $(`#Fila${item}`).remove();
             EliminarDB(valor);
-        } else {
         }
     }
 

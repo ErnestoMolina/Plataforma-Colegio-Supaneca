@@ -37,6 +37,7 @@
                         <th>Tipo De Documento</th>
                         <th>Numero Documento</th>
                         <th>Fecha De Nacimiento</th>
+                        <th>Estado</th>
                         <th>Grado</th>
                         <th>Acudiente</th>
                         <th>Acciones</th>
@@ -56,6 +57,7 @@
                                 <td><?php echo $Estudiante['TipoDocumentoEstudiante'];?></td>
                                 <td><?php echo $Documento;?></td>
                                 <td><?php echo $Estudiante['FechaNacimientoEstudiante'];?></td>
+                                <td><?php echo $Estudiante['Estado'];?></td>
                                 <td value="<?php echo $Estudiante['GradoEstudiante'];?>">
                                     <?php
                                         $NombreGrado = $ActividadesCTR->consultarGrado('IdGrado',$Estudiante['GradoEstudiante']);
@@ -67,10 +69,6 @@
                                 <td><?php echo $Estudiante['NombresAcudiente'].' '.$Estudiante['ApellidosAcudiente'];?></td>
                                 <td>
                                     <input type="hidden" name="idEstudiante" id="idEstudiante" value="<?php echo $Estudiante['IdEstudiante'];?>">
-                                    <button type="button" class="btn btn-outline-danger p-1 pt-0 pb-0"
-                                    onclick="Eliminar(<?= $cont;?>,<?= $Documento; ?>)">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
                                     <button 
                                         type="button" 
                                         class="btn btn-outline-primary p-1 p-1 pt-0 pb-0 editarEstudiante"
@@ -111,11 +109,11 @@
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreE" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreE" id="nombreE" required>
+                            <input type="text" class="form-control" name="nombreE" id="nombreE" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="apellidoE" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoE" id="apellidoE" required>
+                            <input type="text" class="form-control" name="apellidoE" id="apellidoE" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             Tipo de documento:
@@ -124,7 +122,7 @@
                                 <option value="Tarjeta de identidad">Tarjeta de identidad</option>
                                 <option value="Cedula Extranjera">Cedula Extranjera</option>
                                 <option value="Pasaporte">Pasaporte</option>
-                        </select>
+                            </select>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="documentoE" class="text-start">&nbsp;Numero de documento: </label>
@@ -133,6 +131,13 @@
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="fechaNE" class="text-start">&nbsp;Fecha de nacimiento: </label>
                             <input type="date" class="form-control" name="fechaNE" id="fechaNE" placeholder="Ingrese fecha de nacimiento" required>
+                        </div>
+                        <div class="col-6 mt-2">
+                            Estado:
+                            <select class="form-select" name="statusE" id="statusE">
+                                <option>Vinculado</option>
+                                <option>Retirado</option>
+                            </select>
                         </div>
                         <div class="col-6 mt-2">
                         <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grado: </label>
@@ -144,7 +149,7 @@
                                 ?>
                         </select>
                         </div>
-                        <div class="col-12 mt-2">
+                        <div class="col-6 mt-2">
                         <label style="color: rgb(0, 3, 44);" for="listaAcudientes" class="text-start">&nbsp;Acudiente: </label>
                             <select class="form-select" name="listaAcudientes" id="listaAcudientes">
                                 <?php
@@ -178,11 +183,11 @@
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreE" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreE" id="nombreE" required>
+                            <input type="text" class="form-control" name="nombreE" id="nombreE" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="apellidoE" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoE" id="apellidoE" required>
+                            <input type="text" class="form-control" name="apellidoE" id="apellidoE" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaDocumentosE" class="text-start">&nbsp;Tipo de documento: </label>
@@ -192,7 +197,7 @@
                                 <option value="Tarjeta de identidad">Tarjeta de identidad</option>
                                 <option value="Cedula Extranjera">Cedula Extranjera</option>
                                 <option value="Pasaporte">Pasaporte</option>
-                        </select>
+                            </select>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="documentoE" class="text-start">&nbsp;Numero de documento: </label>
@@ -201,6 +206,13 @@
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="fechaNE" class="text-start">&nbsp;Fecha de nacimiento: </label>
                             <input type="date" class="form-control" name="fechaNE" id="fechaNE" required>
+                        </div>
+                        <div class="col-6 mt-2">
+                            Estado:
+                            <select class="form-select" name="statusE" id="statusE">
+                                <option>Vinculado</option>
+                                <option>Retirado</option>
+                            </select>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grados: </label>
@@ -212,7 +224,7 @@
                                 ?>
                         </select>
                         </div>
-                        <div class="col-12 mt-2">
+                        <div class="col-6 mt-2">
                         <label style="color: rgb(0, 3, 44);" for="listaAcudientes" class="text-start">&nbsp;Acudiente: </label>
                             <select class="form-select" name="listaAcudientes" id="listaAcudientes">
                                 <?php
@@ -236,11 +248,9 @@
 
 <script>
   function Eliminar(item, valor) {
-        $(`#fila${item}`).remove();
-        if (confirm("Seguro que desea eliminar este campo")) {
+      if (confirm("Seguro que desea eliminar este campo")) {
+            $(`#fila${item}`).remove();
             EliminarDB(valor);
-        } else {
-            window.location.href = url;
         }
     }
 
@@ -300,4 +310,10 @@
         // mostrar modal
         $('#ModalEditarEstudiante').modal('show')
     })
+
+    function VerificacionTextos(){
+        if(!((event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32))){
+            event.preventDefault()
+        }
+    }
 </script>

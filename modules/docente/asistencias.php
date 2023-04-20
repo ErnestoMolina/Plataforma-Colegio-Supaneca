@@ -111,5 +111,40 @@
 
             return $response;
         }
+
+        public function ConsultarInasistensiasFiltro($DataPost){
+            $response = [];
+            $sql = "SELECT * FROM inasistencias";
+            if($DataPost){
+                $sql .= " WHERE IdMateria = {$DataPost['materia']} AND Periodo = {$DataPost['periodo']} AND IdGrado = {$DataPost['ListaGrados']}";
+            }
+
+            $resultset = $this->DB->query($sql);
+            if($resultset){
+                while($row = $resultset->fetch_assoc()){
+                    $response[] = $row; 
+                }
+            }
+            return $response;
+        }
+
+        public function ConsultarInasistensiasAcudiente($DataPost){
+            $response = [];
+            $sql = "SELECT I.*, G.NombreGrado, E.NombresEstudiante, E.ApellidosEstudiante, M.NombreMateria FROM inasistencias I
+            INNER JOIN estudiantes E ON I.IdEstudiante = E.IdEstudiante
+            INNER JOIN grados G ON I.IdGrado = G.IdGrado
+            INNER JOIN materias M ON I.IdMateria = M.IdMateria";
+            if($DataPost){
+                $sql .= " WHERE I.IdMateria = {$DataPost['materia']} AND I.Periodo = {$DataPost['periodo']} AND I.IdGrado = {$DataPost['ListaGrados']} AND I.IdEstudiante = {$DataPost['estudiantes']}";
+            }
+
+            $resultset = $this->DB->query($sql);
+            if($resultset){
+                while($row = $resultset->fetch_assoc()){
+                    $response[] = $row; 
+                }
+            }
+            return $response;
+        }
     }
 ?>

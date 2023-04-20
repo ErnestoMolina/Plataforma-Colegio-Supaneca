@@ -9,7 +9,7 @@
     $DocenteCTR = new Calificaciones();
     $AsistenciasCTR = new Asistencias();
 
-    $Titulo = 'Asistencias';
+    $Titulo = 'Inasistencias';
     $mensagge = '';
     $tipoAlert = '';
 
@@ -26,8 +26,6 @@
                     $mensagge = $response['success'];
                     $tipoAlert = "alert-success";
                 }
-
-                
             break;
             case 'eliminar':
                 $response = $AsistenciasCTR->EliminarInasistencia($dataRequest['IdInasistencia']);
@@ -49,11 +47,18 @@
                     $tipoAlert = "alert-success";
                 }
             break;
-
+            case 'consultarInasistencias':
+                $Inasistencias = $AsistenciasCTR->ConsultarInasistensiasFiltro($_POST);
+            break;
+            case 'consultarGradosMateria':
+                $Grados = $DocenteCTR->consultarGradosMateria($dataRequest);
+                echo json_encode($Grados);
+                return false;
+            break;
         }
     }
 
     $Materias = $ActividadesCTR->consultarMaterias();
     $Grados = $ActividadesCTR->consultarGrados();
-    $Inasistencias = $AsistenciasCTR->ConsultarInasistensias('','','','','','','','','','');
+    // $Inasistencias = $AsistenciasCTR->ConsultarInasistensias('','','','','','','','','','');
     include('./views/vistaGeneral.php');

@@ -123,7 +123,9 @@
             if(!$DataRow){
                 return ['error' => 'No se han editado datos'];
             }
-
+            include '../../../controller/admin/seguridad.php';
+            $passEncriptada = new Seguridad();
+            $contraseña = $passEncriptada->encriptarP($DataRow['contraseñaD']);
             $Materias = json_encode($DataRow['listaMaterias']);
             
             $sql = "UPDATE docentes SET
@@ -134,7 +136,7 @@
             FechaNacimientoDocente = '".$DataRow['fechaND']."',
             TelefonoDocente = '".$DataRow['telefonoD']."',
             CorreoElectronicoDocente = '".$DataRow['emailD']."',
-            ContraseñaDocente = '".$DataRow['contraseñaD']."',
+            ContraseñaDocente = '".$contraseña."',
             idMateria = '".$Materias."'
             WHERE IdDocente = ".$DataRow['idDocente'].";";
 

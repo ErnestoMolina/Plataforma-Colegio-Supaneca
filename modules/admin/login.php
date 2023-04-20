@@ -51,8 +51,9 @@ class Login
             while ($fila = $resultset3->fetch_assoc()) {
                 echo $_SESSION = $fila;
                 echo $_SESSION['typeUser'] = 'Acudiente';
+                echo $_SESSION["Id"] = $fila["IdAcudiente"];
                 $_SESSION["Usuario"] = $fila["NombresAcudiente"].' '.$fila['ApellidosAcudiente'];
-                header('Location: ../../views/acudiente/indexAcudiente.php');
+                header('Location: ../../views/acudiente/index.php');
             }
         }else{
                 $_SESSION["Error"] = "Por favor verifique sus credenciales de acceso";

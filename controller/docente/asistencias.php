@@ -60,5 +60,13 @@
             }
             return $this->InasistenciaModel->EliminarInasistencia($IdInasistencia);
         }
+
+        public function ConsultarInasistensiasFiltro($DataPost){
+            return $DataResponse = $this->InasistenciaModel->ConsultarInasistensiasFiltro($DataPost);
+        }
+
+        public function ConsultarInasistensiasAcudiente($DataPost){
+            return $DataResponse = $this->InasistenciaModel->ConsultarInasistensiasAcudiente($DataPost);
+        }
     }
 ?>

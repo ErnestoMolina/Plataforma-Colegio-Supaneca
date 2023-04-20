@@ -34,7 +34,7 @@
             }
             
             if(isset($DataPost['nombreA'])){
-                $InfoActividad = $this->ActividadesModel->ConsultarActividad('Nombre',$DataPost['nombreA'],'IdGrado',$DataPost['listaGrados'],'IdMateria',$DataPost['listaMaterias'],'Descripcion',$DataPost['descripcion'],'Periodo',$DataPost['periodo']);
+                $InfoActividad = $this->ActividadesModel->ConsultarActividad('Nombre',$DataPost['nombreA'],'IdGrado',$DataPost['listaGrados'],'IdMateria',$DataPost['listaMaterias'],'Descripcion',$DataPost['descripcion'],'Periodo',$DataPost['periodo'],'TipoActividad',$DataPost['tipoActividad']);
                 if(!$InfoActividad){
                     $DataResponse = $this->ActividadesModel->ProcesarActividad($DataPost);
                 }else{
@@ -49,6 +49,10 @@
             return $DataRespose = $this->ActividadesModel->ConsultarActividades($DataPost);
         }
 
+        public function ConsultarActividadesDocente($DataPost){
+            return $DataRespose = $this->ActividadesModel->ConsultarActividades($DataPost);
+        }
+
         public function EditarActividad($DataPost){
             $DataResponse;
             if(!$DataPost){
@@ -56,7 +60,7 @@
             }
             
             if(isset($DataPost['nombreA'])){
-                $InfoActividad = $this->ActividadesModel->ConsultarActividad('Nombre',$DataPost['nombreA'],'IdGrado',$DataPost['listaGrados'],'IdMateria',$DataPost['listaMaterias'],'Descripcion',$DataPost['descripcion'],'Periodo',$DataPost['periodo']);
+                $InfoActividad = $this->ActividadesModel->ConsultarActividad('Nombre',$DataPost['nombreA'],'IdGrado',$DataPost['listaGrados'],'IdMateria',$DataPost['listaMaterias'],'Descripcion',$DataPost['descripcion'],'Periodo',$DataPost['periodo'],'TipoActividad',$DataPost['tipoActividad']);
                 if(!$InfoActividad){
                     $DataResponse = $this->ActividadesModel->EditarActividad($DataPost);
                 }else{

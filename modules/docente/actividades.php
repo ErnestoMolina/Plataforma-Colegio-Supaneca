@@ -21,9 +21,9 @@
             return $response;
         }
 
-        public function ConsultarActividad($NombreActividad,$valorNombre,$IdGrado,$valorGrado,$IdMateria,$valorMateria,$Descripcion,$valorDescripcion,$Periodo,$valorPeriodo){
+        public function ConsultarActividad($NombreActividad,$valorNombre,$IdGrado,$valorGrado,$IdMateria,$valorMateria,$Descripcion,$valorDescripcion,$Periodo,$valorPeriodo,$TipoActividad,$valorTipoActividad){
             $response = [];
-            $sql = "SELECT * FROM actividades WHERE ".$NombreActividad." = '".$valorNombre."' AND ".$IdGrado." = '".$valorGrado."' AND ".$IdMateria." = '".$valorMateria."' AND ".$Descripcion." = '".$valorDescripcion."' AND ".$Periodo." = '".$valorPeriodo."';";
+            $sql = "SELECT * FROM actividades WHERE ".$NombreActividad." = '".$valorNombre."' AND ".$IdGrado." = '".$valorGrado."' AND ".$IdMateria." = '".$valorMateria."' AND ".$Descripcion." = '".$valorDescripcion."' AND ".$Periodo." = '".$valorPeriodo."' AND ".$TipoActividad." = '".$valorTipoActividad."';";
 
             $resultset = $this->DB->query($sql);
 
@@ -37,8 +37,8 @@
 
         public function ProcesarActividad($DataPost){
             $response = [];
-            $sql = "INSERT INTO actividades (IdGrado,IdMateria,Nombre,Descripcion,Periodo)
-                    VALUES('".$DataPost['listaGrados']."','".$DataPost['listaMaterias']."','".$DataPost['nombreA']."','".$DataPost['descripcion']."','".$DataPost['periodo']."');";
+            $sql = "INSERT INTO actividades (IdGrado,IdMateria,Nombre,Descripcion,Periodo,TipoActividad)
+                    VALUES('".$DataPost['listaGrados']."','".$DataPost['listaMaterias']."','".$DataPost['nombreA']."','".$DataPost['descripcion']."','".$DataPost['periodo']."','".$DataPost['tipoActividad']."');";
 
             $resultset = $this->DB->query($sql);
 
@@ -62,7 +62,8 @@
             IdMateria = '{$DataPost['listaMaterias']}',
             Nombre = '{$DataPost['nombreA']}',
             Descripcion = '{$DataPost['descripcion']}',
-            Periodo = '{$DataPost['periodo']}'
+            Periodo = '{$DataPost['periodo']}',
+            TipoActividad = '{$DataPost['tipoActividad']}'
             WHERE Id = {$DataPost['idActividad']}";
 
             $resultset = $this->DB->query($sql);
@@ -122,6 +123,22 @@
                 $response['error'] = 'Error al eliminar la actividad.';
             }
 
+            return $response;
+        }
+
+        public function ConsultarActividadesDocente($DataPost = false){
+            $response = [];
+            $sql = "SELECT * FROM actividades";
+            if($DataPost){
+                $sql .= " WHERE IdMateria = {$DataPost['materia']} AND IdGrado = {$DataPost['ListaGrados']}";
+            }
+
+            $resultset = $this->DB->query($sql);
+            if($resultset){
+                while($row = $resultset->fetch_assoc()){
+                    $response[] = $row; 
+                }
+            }
             return $response;
         }
     }

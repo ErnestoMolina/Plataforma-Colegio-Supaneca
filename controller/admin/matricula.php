@@ -16,6 +16,10 @@
             return $this->EstudiantesModel->ConsultarEstudiantesGrado($Filtro);
         }
 
+        public function consultarGradoEstudiante($Filtro = false){
+            return $this->EstudiantesModel->consultarGradoEstudiante($Filtro);
+        }
+
         public function ProcesarEstudiante($DataPost = false){
             $DataResponse;
             if(!$DataPost){
@@ -52,7 +56,6 @@
             if(isset($DataPost['idEstudiante'])){
                 // validamos si el documento del estudiante ya existe
                 $InfoEstudiante = $this->EstudiantesModel->ConsultarEstudiante('NDocumentoEstudiante', $DataPost['documentoE'],'TipoDocumentoEstudiante',$DataPost['listaDocumentosE']);
-
                 if($InfoEstudiante){
                     $DataResponse = $this->EstudiantesModel->EditarEstudiante($DataPost);
                 }else{

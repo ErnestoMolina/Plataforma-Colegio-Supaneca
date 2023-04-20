@@ -24,7 +24,7 @@
 
     <div class="row">
         <div class="col ms-5">
-            <form action="/proyecto/views/administrador/perfil/index.php" method="POST">
+            <form action="/proyecto/views/Docente/perfil/index.php" method="POST">
                 <div class="row">
                 <?php
                     $IdDocente = $_SESSION['Id'];
@@ -68,7 +68,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Materia</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Datos</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -76,11 +76,11 @@
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreD" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreD" id="nombreD" required>
+                            <input type="text" class="form-control" name="nombreD" id="nombreD" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="apellidoD" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" required>
+                            <input type="text" class="form-control" name="apellidoD" id="apellidoD" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaDocumentosD" class="text-start">&nbsp;Tipo de documento: </label>
@@ -150,4 +150,10 @@
         $('#ModalEditarDatos').find('#idDocente').val(IdAdmin)
 
     })
+
+    function VerificacionTextos(){
+        if(!((event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32))){
+            event.preventDefault()
+        }
+    }
 </script>

@@ -19,7 +19,7 @@
                             </li>
                             <li>
                                 <a href="http://localhost/proyecto/modules/admin/cerrarSession.php" class="dropdown-item" style=" padding-top:3px;">
-                                    Cerrar Session <i class="bi bi-box-arrow-right" style="font-size:20px; padding-top:2px; "></i>
+                                    Cerrar Sesion <i class="bi bi-box-arrow-right" style="font-size:20px; padding-top:2px; "></i>
                                 </a>
                             </li>
                         </ul>
@@ -41,6 +41,11 @@
                     <li class="col-12">
                         <a href="../index.php" class="mb-1 mt-1">
                             Inicio
+                        </a>
+                    </li>
+                    <li class="col-12">
+                        <a href="/proyecto/views/administrador/perfil/index.php" class="dropdown-item">
+                            Mi Perfil
                         </a>
                     </li>
                     <li class="col-12 containerSubList">
@@ -76,6 +81,33 @@
                     <li class="col-12">
                         <a href="/proyecto/views/administrador/cargaAcademica/index.php" class="mb-1 mt-1">
                             Carga Académica
+                        </a>
+                    </li>
+                    <li class="col-12 containerSubList">
+                        <a href="#" class="mb-1 mt-1 subList collapseTitle">
+                            Documentos
+                        </a>
+                        <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
+                            <li class="col-12">
+                                <a href="/proyecto/views/administrador/boletines/index.php" class="mb-1 mt-1">
+                                    Boletines
+                                </a>
+                            </li>
+                            <li class="col-12">
+                                <a href="/proyecto/views/administrador/boletinfinales/index.php" class="mb-1 mt-1">
+                                    Informe Evaluación
+                                </a>
+                            </li>
+                            <li class="col-12">
+                                <a href="/proyecto/views/administrador/Certificados/index.php" class="mb-1 mt-1">
+                                    Acta Finales
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="col-12">
+                        <a href="http://localhost/proyecto/modules/admin/cerrarSession.php" class="dropdown-item" style=" padding-top:3px;">
+                            Cerrar Sesion
                         </a>
                     </li>
                 </ul>
@@ -124,6 +156,28 @@
             <a href="/proyecto/views/administrador/cargaAcademica/index.php" class="mb-1 mt-1">
                 Carga Académica
             </a>
+        </li>
+        <li class="col-12 containerSubList">
+            <a href="#" class="mb-1 mt-1 subList collapseTitle">
+                Documentos
+            </a>
+            <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
+                <li class="col-12">
+                    <a href="/proyecto/views/administrador/boletines/index.php" class="mb-1 mt-1">
+                        Boletines
+                    </a>
+                </li>
+                <li class="col-12">
+                    <a href="/proyecto/views/administrador/boletinfinales/index.php" class="mb-1 mt-1">
+                        Informe Evaluación
+                    </a>
+                </li>
+                <li class="col-12">
+                    <a href="/proyecto/views/administrador/Certificados/index.php" class="mb-1 mt-1">
+                        Acta Finales
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

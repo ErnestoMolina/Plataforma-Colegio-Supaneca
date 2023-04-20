@@ -77,11 +77,11 @@
                     <div class="row justify-content-center">
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreA" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreA" id="nombreA" required>
+                            <input type="text" class="form-control" name="nombreA" id="nombreA" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="apellidoA" class="text-start">&nbsp;Apellido: </label>
-                            <input type="text" class="form-control" name="apellidoA" id="apellidoA" required>
+                            <input type="text" class="form-control" name="apellidoA" id="apellidoA" onKeypress="VerificacionTextos()" required>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaDocumentosA" class="text-start">&nbsp;Tipo de documento: </label>
@@ -149,4 +149,10 @@
         $('#ModalEditarDatos').find('#idAdmin').val(IdAdmin)
 
     })
+
+    function VerificacionTextos(){
+        if(!((event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122))){
+            event.preventDefault()
+        }
+    }
 </script>

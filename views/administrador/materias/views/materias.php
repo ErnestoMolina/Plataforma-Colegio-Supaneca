@@ -85,7 +85,7 @@
                     <div class="row justify-content-center">
                         <div class="col-12 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreM" class="text-start">&nbsp;Materia: </label>
-                            <input type="text" class="form-control" name="nombreM" id="nombreM" required>
+                            <input type="text" class="form-control" name="nombreM" id="nombreM" onKeypress="VerificacionTextos()" required>
                         </div>
                         <input type="hidden" name="accion" value="crearMateria">
                         <button type="submit" class="btn btn-success mt-3 w-25">Agregar</button>
@@ -109,7 +109,7 @@
                     <div class="row justify-content-center">
                         <div class="col-12 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="nombreM" class="text-start">&nbsp;Nombre: </label>
-                            <input type="text" class="form-control" name="nombreM" id="nombreM" required>
+                            <input type="text" class="form-control" name="nombreM" id="nombreM" onKeypress="VerificacionTextos()" required>
                         </div>
                         <input type="hidden" name="accion" value="editarMateria">
                         <input type="hidden" name="idMateria" id="idMateria" value="">
@@ -234,4 +234,10 @@
         // mostrar modal
         $('#ModalEditarMateria').modal('show')
     })
+
+    function VerificacionTextos(){
+        if(!((event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32))){
+            event.preventDefault()
+        }
+    }
 </script>

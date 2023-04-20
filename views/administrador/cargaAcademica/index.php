@@ -1,6 +1,8 @@
 <?php
     include_once '../../../controller/admin/CargaAcademica.php';
+    include_once '../../../controller/admin/matricula.php';
     $CargaAcademicaCTR = new CargaAcademica();
+    $EstudiantesCTR = new Estudiante();
 
     $Titulo = 'Carga Academica';
     $mensagge = '';
@@ -10,25 +12,8 @@
     if(isset($_POST['accion']) || isset($dataRequest['accion'])){
         $accion = $_POST['accion'] ?? $dataRequest['accion'];
         switch($accion){
-            case 'crearAcudiente':
-                $response = $CargaAcademicaCTR->ProcesarAcudiente($_POST);
-                if(isset($response['error'])){
-                    $mensagge = $response['error'];
-                    $tipoAlert = "alert-danger";
-                }elseif($response['success']){
-                    $mensagge = $response['success'];
-                    $tipoAlert = "alert-success";
-                }
-            break;
-            case 'validarEstudiantesAsociados':
-                $response = $AcudienteCTR->validarEstudiantesAsociados($dataRequest['IdAcudiente']);
-
-                echo $response = json_encode($response);
-                return $response;
-            break;
-            case 'eliminarAcudiente':
-                $response = $AcudienteCTR->EliminarAcudiente($dataRequest['IdAcudiente']);
-
+            case 'ConsultarDirectores':
+                $response = $CargaAcademicaCTR->ConsultarDirectores($dataRequest);
                 echo $response = json_encode($response);
                 return $response;
             break;
@@ -41,7 +26,6 @@
                     $mensagge = $response['success'];
                     $tipoAlert = "alert-success";
                 }
-
             break;
 
         }

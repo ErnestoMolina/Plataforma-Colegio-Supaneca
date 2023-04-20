@@ -1,5 +1,5 @@
 <div class="col-10 containerSection">
-    <h1>Asistencias</h1>
+    <h1>Inasistencias</h1>
     <div class="row">
         <div class="col-lg-10 col-md-9 col-sm-12" id="containerAlert">
             <?php
@@ -25,6 +25,46 @@
         </div>
     </div>
 
+    <form action="/proyecto/views/docente/asistencias/index.php" method="POST">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12 col-md-12">
+                <label style="color: rgb(0, 3, 44);" for="materia" class="text-start">&nbsp;Materia: </label>
+                <select class="form-select mt-2" name="materia" id="listamateria" required>
+                    <option value="">Seleccione una opcion</option>
+                    <?php
+                        $Materias = [];
+                        $Materias = $DocenteCTR->consultarMaterias($_SESSION['Id']);
+                        // print_r($Materias);
+                        foreach($Materias as $Materia){
+                            echo '<option value="'.$Materia['IdMateria'].'">'.$Materia['NombreMateria']."</option> ";
+                        }
+                        
+                    ?>
+                </select>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-md-12">
+                <label style="color: rgb(0, 3, 44);" for="ListaGrados" class="text-start">&nbsp;Periodo: </label>
+                <select class="form-select mt-2" name="periodo" id="periodo" required>
+                    <option value="1">Primero</option>
+                    <option value="2">Segundo</option>
+                    <option value="3">Tercero</option>
+                    <option value="4">Cuarto</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-md-12">
+                <label style="color: rgb(0, 3, 44);" for="ListaGrados" class="text-start">&nbsp;Grado: </label>
+                <select class="form-select mt-2" name="ListaGrados" id="ListaGrado" required>
+                    
+                </select>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-md-12">
+                <button type="submit" class="btn btn-success" style="margin-top: 31px;">Cargar</button>
+            </div>
+        </div>
+        <input type="hidden" name="accion" id="accion" value="consultarInasistencias">
+        <input type="hidden" name="IdUser" id="IdUser" value="<?php echo $_SESSION['Id']; ?>">
+    </form>
+    <hr>
     
    <div class="container mt-3 mb-3">
         <div class="table-responsive">
@@ -43,10 +83,12 @@
                 </thead>
                 <tbody>
                     <?php
-                        $cont = 0;
-                        foreach ($Inasistencias as $Inasistencia) {
-                            $cont++;
-                            echo '<tr id="fila'.$cont.'">'
+                        if(isset($_POST['materia']) && $_POST['materia'] != ''){
+                            echo $_POST['accion'];
+                            $cont = 0;
+                            foreach ($Inasistencias as $Inasistencia) {
+                                $cont++;
+                                echo '<tr id="fila'.$cont.'">'
                     ?>
                                 <td><?php echo $cont; ?></td>
                                 <td >
@@ -118,6 +160,7 @@
                                 </td>
                             </tr>
                     <?php
+                            }
                         }
                     ?>
                 </tbody>
@@ -141,16 +184,18 @@
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaGrados" class="text-start">&nbsp;Grado: </label>
                             <select class="form-select" name="listaGrados" id="listaGrados" required>
+                                <option value="">Seleccione una opción</option>
                                 <?php
-                                    foreach($Grados as $Grado){
-                                        echo '<option value="'.$Grado['IdGrado'].'">'.$Grado['NombreGrado'].'</option>';
-                                    }
+                                    // foreach($Grados as $Grado){
+                                    //     echo '<option value="'.$Grado['IdGrado'].'">'.$Grado['NombreGrado'].'</option>';
+                                    // }
                                 ?>
                             </select>
                         </div>
                         <div class="col-6 mt-2">
                             <label style="color: rgb(0, 3, 44);" for="listaMaterias" class="text-start">&nbsp;Materias: </label>
                             <select class="form-select" name="listaMaterias" id="listaMaterias" required>
+                                <option value="">Seleccione una opción</option>
                                 <?php
                                    foreach($Materias as $Materia){
                                     echo '<option value="'.$Materia['IdMateria'].'">'.$Materia['NombreMateria'].'</option>';
@@ -258,7 +303,36 @@
 <script>
     const selectEstudiantes = $('#idEstudiant')
     const selectEstudiantesE = $('#idEstudiantE')
+    const seleccionGrados = $('#ListaGrado')
+    const selectGrados = $('#listaGrados')
 
+    $('#listaMaterias').change(function(){
+        materia = $('#listaMaterias').val()
+        IdUsuario = $('#IdUser').val()
+
+        const DataParam = {
+            'accion': 'consultarGradosMateria',
+            'IdUser': IdUsuario,
+            'materia': materia
+        }
+        const url = window.location.pathname
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(DataParam)
+        })
+        .then(response => response.json())
+        .then(result => {
+            selectGrados.html('<option value="">Seleccione una opcion</option>')
+
+            result.map((Grado,index)=>{
+                const htmloption = `<option value="${Grado.IdGrado}">${Grado.NombreGrado}</option>` 
+                selectGrados.append(htmloption)
+            })
+        })
+    })
 
     $('#listaGrados').change(function(){
         valor = $('#listaGrados').val()
@@ -312,11 +386,9 @@
     })
 
     function Eliminar(item, valor) {
-        $(`#fila${item}`).remove();
         if (confirm("Seguro que desea eliminar este campo")) {
+            $(`#fila${item}`).remove();
             EliminarDB(valor);
-        } else {
-            location.reload()
         }
     }
 
@@ -397,5 +469,33 @@
 
         // mostrar modal
         $('#ModalEditarInasistencias').modal('show')
+    })
+
+    $('#listamateria').change(function(){
+        materia = $('#listamateria').val()
+        IdUsuario = $('#IdUser').val()
+
+        const DataParam = {
+            'accion': 'consultarGradosMateria',
+            'IdUser': IdUsuario,
+            'materia': materia
+        }
+        const url = window.location.pathname
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(DataParam)
+        })
+        .then(response => response.json())
+        .then(result => {
+            seleccionGrados.html('<option value="">Seleccione una opcion</option>')
+
+            result.map((Grado,index)=>{
+                const htmloptio = `<option value="${Grado.IdGrado}">${Grado.NombreGrado}</option>` 
+                seleccionGrados.append(htmloptio)
+            })
+        })
     })
 </script>
