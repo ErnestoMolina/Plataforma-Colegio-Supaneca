@@ -8,7 +8,7 @@
     $CargaAcademicaCTR = new CargaAcademica();
     $pdf = new FPDF();
 
-    $Titulo = 'Boletines';
+    $Titulo = 'Documentos: Boletines';
     $mensagge = '';
     $tipoAlert = '';
 

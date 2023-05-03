@@ -355,5 +355,17 @@
 
             return $response;
         }
+
+        public function DepurarCalificaciones($DataPost){
+            $response = [];
+            $sql = "TRUNCATE TABLE calificaciones";
+            $result = $this->DB->query($sql);
+            if($result === true){
+                $response = ['success' => 'Se han depurado las calificaciones Exitosamente'];
+            }else{
+                $response = ['error' => 'No se han depurado las calificaciones'];
+            }
+            return $response;
+        }
     }
 ?>

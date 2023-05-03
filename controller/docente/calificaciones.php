@@ -203,5 +203,9 @@
             return $response;
             
         }
+
+        public function DepurarCalificaciones($DataPost){
+            return $this->CalificacionesModel->DepurarCalificaciones($DataPost);
+        }
     }
 ?>

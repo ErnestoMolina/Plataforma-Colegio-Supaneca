@@ -9,9 +9,12 @@
             $this->DB = $conexion->conectarDB();
         }
 
-        public function ConsultarAdministrador($IdAdmin){
+        public function ConsultarAdministrador($Filtro){
             $response = [];
-            $sql = "SELECT * FROM administradores WHERE IdAdministrador = '{$IdAdmin}'";
+            $sql = "SELECT * FROM administradores";
+            if($Filtro){
+                $sql .= " {$Filtro}";
+            }
             $resultset = $this->DB->query($sql);
          
             if($resultset){
@@ -21,6 +24,41 @@
             }
             return $response;
         }
+
+        public function ConsultarAcudienteEditar($Filtro){
+            $response = [];
+            $sql = "SELECT * FROM acudientes";
+            if($Filtro){
+                $sql .= " $Filtro";
+            }
+            $resultset = $this->DB->query($sql);
+         
+            if($resultset){
+                while ($row = $resultset->fetch_assoc()) {
+                    $response[] = $row;
+                }
+            }
+
+            return $response;
+        }
+
+        public function ConsultarCorreoDocente($Filtro){
+            $response = [];
+            $sql = "SELECT * FROM docentes";
+            if($Filtro){
+                $sql .= " $Filtro";
+            }
+            $resultset = $this->DB->query($sql);
+         
+            if($resultset){
+                while ($row = $resultset->fetch_assoc()) {
+                    $response[] = $row;
+                }
+            }
+
+            return $response;
+        }
+        
         public function EditarDatos($DataRow){
             $response = [];
             if(!$DataRow){

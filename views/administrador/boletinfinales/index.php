@@ -8,7 +8,7 @@
     $CargaAcademicaCTR = new CargaAcademica();
     $pdf = new FPDF();
 
-    $Titulo = 'Actas Finales';
+    $Titulo = 'Documentos: Informes Finales';
     $mensagge = '';
     $tipoAlert = '';
 

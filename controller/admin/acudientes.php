@@ -30,12 +30,20 @@
 
             if(isset($DataPost['documentoA'])){
                 // validamos si el documento del acudiente ya existe
-                $InfoAcudiente = $this->AcudientesModel->ConsultarAcudiente('NDocumentoAcudiente', $DataPost['documentoA'],'TipoDocumentoAcudiente',$DataPost['listaDocumentosA']);
-
-                if(!$InfoAcudiente){
+                $InfoAcudienteDocumento = $this->AcudientesModel->ConsultarAcudienteEditar('WHERE NDocumentoAcudiente = "'.$DataPost['documentoA'].'" AND TipoDocumentoAcudiente = "'.$DataPost['listaDocumentosA'].'"');
+                $InfoAcudienteEmail = $this->AcudientesModel->ConsultarAcudienteEditar('WHERE CorreoElectronicoAcudiente = "'.$DataPost['emailA'].'"');
+                $InfoDocenteEmail = $this->AcudientesModel->ConsultarCorreoDocente('WHERE CorreoElectronicoDocente = "'.$DataPost['emailA'].'"');
+                $InfoAdminEmail = $this->AcudientesModel->ConsultarCorreoAdmin('WHERE CorreoElectronicoAdministrador = "'.$DataPost['emailA'].'"');
+                // print_r($InfoAcudienteDocumento);
+                // print_r($InfoAcudienteEmail);
+                // print_r($InfoDocenteEmail);
+                // print_r($InfoAdminEmail);die;
+                if(empty($InfoAcudienteDocumento) && empty($InfoAcudienteEmail) && empty($InfoDocenteEmail) && empty($InfoAdminEmail)){
                     $DataResponse = $this->AcudientesModel->ProcesarAcudiente($DataPost);
-                }else{
-                    $DataResponse = ['error' => 'El numero de documento ya existe.'];
+                }elseif(!empty($InfoAcudienteDocumento)){
+                    $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];
+                }elseif(!empty($InfoAcudienteEmail) || !empty($InfoDocenteEmail) || !empty($InfoAdminEmail)){
+                    $DataResponse = ['error' => 'Lo sentimos, el correo electronico ya esta siendo usado.'];
                 }
             }
 
@@ -66,12 +74,20 @@
             }
             if(isset($DataPost['idAcudiente'])){
                 // validamos si el documento del estudiante ya existe
-                $InfoAcudiente = $this->AcudientesModel->ConsultarAcudienteEditar('IdAcudiente = '.$DataPost['idAcudiente']);
-
-                if($InfoAcudiente){
+                $InfoAcudienteDocumento = $this->AcudientesModel->ConsultarAcudienteEditar('WHERE NDocumentoAcudiente = "'.$DataPost['documentoA'].'" AND TipoDocumentoAcudiente = "'.$DataPost['listaDocumentosA'].'" AND IdAcudiente NOT LIKE '.$DataPost['idAcudiente']);
+                $InfoAcudienteEmail = $this->AcudientesModel->ConsultarAcudienteEditar('WHERE CorreoElectronicoAcudiente = "'.$DataPost['emailA'].'" AND IdAcudiente NOT LIKE '.$DataPost['idAcudiente']);
+                $InfoDocenteEmail = $this->AcudientesModel->ConsultarCorreoDocente('WHERE CorreoElectronicoDocente = "'.$DataPost['emailA'].'"');
+                $InfoAdminEmail = $this->AcudientesModel->ConsultarCorreoAdmin('WHERE CorreoElectronicoAdministrador = "'.$DataPost['emailA'].'"');
+                // print_r($InfoAcudienteDocumento);echo '<br>';
+                // print_r($InfoAcudienteEmail);echo '<br>';
+                // print_r($InfoDocenteEmail);echo '<br>';
+                // print_r($InfoAdminEmail);die;
+                if(empty($InfoAcudienteDocumento) && empty($InfoAcudienteEmail) && empty($InfoDocenteEmail) && empty($InfoAdminEmail)){
                     $DataResponse = $this->AcudientesModel->EditarAcudiente($DataPost);
-                }else{
+                }elseif(!empty($InfoAcudienteDocumento)){
                     $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];
+                }elseif(!empty($InfoAcudienteEmail) || !empty($InfoDocenteEmail) || !empty($InfoAdminEmail)){
+                    $DataResponse = ['error' => 'Lo sentimos, el correo electronico ya esta siendo usado.'];
                 }
             }
 

@@ -74,7 +74,12 @@
                                         data-documento="<?php echo $Documento;?>"
                                         data-fecha_nacimiento="<?php echo $Acudiente['FechaNacimientoAcudiente'];?>"
                                         data-id_acudiente="<?php echo $Acudiente['IdAcudiente'];?>"
-                                        data-contraseña="<?php echo $Acudiente['ContraseñaAcudiente'];?>"
+                                        data-contraseña="<?php
+                                                            include_once '../../../controller/admin/seguridad.php';
+                                                            $Seguridad = new Seguridad;
+                                                            $desencriptado = $Seguridad->DesencriptarP($Acudiente['ContraseñaAcudiente']);
+                                                            echo $desencriptado;
+                                                        ?>"
                                         data-telefono="<?php echo $Acudiente['TelefonoAcudiente'];?>"
                                         data-email="<?php echo $Acudiente['CorreoElectronicoAcudiente'];?>"
 

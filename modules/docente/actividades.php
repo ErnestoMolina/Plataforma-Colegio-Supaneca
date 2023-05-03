@@ -141,5 +141,17 @@
             }
             return $response;
         }
+
+        public function DepurarActividades($DataPost){
+            $response = [];
+            $sql = "TRUNCATE TABLE actividades";
+            $result = $this->DB->query($sql);
+            if($result === true){
+                $response = ['success' => 'Se han depurado las actividades Exitosamente'];
+            }else{
+                $response = ['error' => 'No se han depurado las actividades'];
+            }
+            return $response;
+        }
     }
 ?>

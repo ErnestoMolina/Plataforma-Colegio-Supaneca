@@ -105,3 +105,102 @@ body{
 #datos tr{
     border-color: 1px solid black;
 }
+
+.imagenNoticia{
+    height: 186px;
+}
+
+.descripcionNoticia{
+    max-height: 70px; 
+    min-height: 70px;
+    overflow-y: auto;
+    margin-bottom: 5px;
+}
+
+.fechaNoticia{
+    margin-bottom: 0px;
+}
+
+.noticia{
+    max-height: 350px;
+    min-height: 350px;
+}
+
+.card-header{
+    border-bottom: none !important; 
+}
+
+.iconFuter{
+    font-size: 27px;
+    margin-top:15px;
+    margin-left: 5px;
+}
+#mensajePassword{
+    font-size: 14px;
+}
+#mensajeContraseña{
+    font-size: 14px;
+}
+
+@media (max-width:500px) 
+{
+    #futer h6{
+        font-size: 10px;
+    }
+    #futer p{
+        font-size: 10px;
+    }
+    p{
+        font-size: 10px;
+        margin: 5px;
+    }
+    .nav-link{
+        font-size: 10px;
+        padding: 5px;
+    }
+    .dropdown-menu{
+        font-size: 10px;
+        padding: 0px !important;
+        margin: 2px !important;
+    }
+    .dropdown-items{
+        font-size: 10px;
+        padding: 2px !important;
+        margin: 0px !important;
+    }
+    .texto_alucivo{
+        margin: 1px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .descripcionNoticia{
+        max-height: 50px; 
+        min-height: 50px;
+        overflow-y: auto;
+    }
+    .noticia{
+        max-height: 280px;
+        min-height: 280px;
+    }
+    .imagenNoticia{
+        height: 150px;
+    }
+    .bi{
+        font-size: 20px;
+        margin-top:15px;
+        margin-left: 5px;
+    }
+    .autor{
+        margin-top:8spx;
+
+    }
+    label{
+        font-size: 14px;
+    }
+    #mensajePassword{
+        font-size: 12px;
+    }
+    #mensajeContraseña{
+        font-size: 12px;
+    }
+}

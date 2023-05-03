@@ -78,5 +78,9 @@
 
             return $this->ActividadesModel->EliminarActividad($IdActividad);
         }
+
+        public function DepurarActividades($DataPost){
+            return $this->ActividadesModel->DepurarActividades($DataPost);
+        }
     }
 ?>

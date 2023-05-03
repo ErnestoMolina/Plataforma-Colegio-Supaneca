@@ -84,7 +84,6 @@
                 <tbody>
                     <?php
                         if(isset($_POST['materia']) && $_POST['materia'] != ''){
-                            echo $_POST['accion'];
                             $cont = 0;
                             foreach ($Inasistencias as $Inasistencia) {
                                 $cont++;

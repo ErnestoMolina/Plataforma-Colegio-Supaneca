@@ -58,7 +58,39 @@
             $response = [];
             $sql = "SELECT * FROM acudientes";
             if($Filtro){
-                $sql .= " WHERE $Filtro";
+                $sql .= " $Filtro";
+            }
+            $resultset = $this->DB->query($sql);
+         
+            if($resultset){
+                while ($row = $resultset->fetch_assoc()) {
+                    $response[] = $row;
+                }
+            }
+
+            return $response;
+        }
+        public function ConsultarCorreoDocente($Filtro){
+            $response = [];
+            $sql = "SELECT * FROM docentes";
+            if($Filtro){
+                $sql .= " $Filtro";
+            }
+            $resultset = $this->DB->query($sql);
+         
+            if($resultset){
+                while ($row = $resultset->fetch_assoc()) {
+                    $response[] = $row;
+                }
+            }
+
+            return $response;
+        }
+        public function ConsultarCorreoAdmin($Filtro){
+            $response = [];
+            $sql = "SELECT * FROM administradores";
+            if($Filtro){
+                $sql .= " $Filtro";
             }
             $resultset = $this->DB->query($sql);
          
@@ -86,9 +118,9 @@
             
             $resultset = $this->DB->query($sql);
             if($resultset === true){
-                $response['success'] = 'Se ha agregado Exitosamente';
+                $response['success'] = 'Se ha agregado Exitosamente '.$DataRow['nombreA'].' '.$DataRow['apellidoA'];
             }else{
-                $response['Error'] = 'Error al agregar.';
+                $response['Error'] = 'Error al agregar '.$DataRow['nombreA'].' '.$DataRow['apellidoA'];
             }
 
             return $response;
@@ -104,9 +136,9 @@
             $resultset = $this->DB->query($sql);
 
             if($resultset === true){
-                $response['success'] = 'El acudiente ha sido eliminado exitosamente.';
+                $response['success'] = $DataRow['nombreA'].' '.$DataRow['apellidoA'].' ha sido eliminado exitosamente.';
             }else{
-                $response['error'] = 'Error al eliminar al acudiente.';
+                $response['error'] = 'Error al eliminar al acudiente '.$DataRow['nombreA'].' '.$DataRow['apellidoA'];
             }
 
             return $response;
@@ -117,6 +149,9 @@
             if(!$DataRow){
                 return ['error' => 'No se han editado los datos'];
             }
+            include '../../../controller/admin/seguridad.php';
+            $passEncriptada = new Seguridad();
+            $contraseña = $passEncriptada->encriptarP($DataRow['contraseñaA']);
 
             $sql = "UPDATE acudientes SET
             NombresAcudiente = '".$DataRow['nombreA']."',
@@ -126,14 +161,14 @@
             FechaNacimientoAcudiente = '".$DataRow['fechaNA']."',
             TelefonoAcudiente = '".$DataRow['telefonoA']."',
             CorreoElectronicoAcudiente = '".$DataRow['emailA']."',
-            ContraseñaAcudiente = '".$DataRow['contraseñaA']."'
+            ContraseñaAcudiente = '".$contraseña."'
             WHERE IdAcudiente= ".$DataRow['idAcudiente'].";";
 
             $resultset = $this->DB->query($sql);
             if($resultset === true){
-                $response['success'] = 'Se ha actualizado Exitosamente';
+                $response['success'] = 'Se ha actualizado Exitosamente '.$DataRow['nombreA'].' '.$DataRow['apellidoA'];
             }else{
-                $response['Error'] = 'Lo sentimos, el numero de documento ya existe.';
+                $response['Error'] = 'Error al actualizar '.$DataRow['nombreA'].' '.$DataRow['apellidoA'];
             }
 
             return $response;

@@ -54,6 +54,9 @@
                         </a>
                         <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
                             <li>
+                                <a href="/proyecto/views/administrador/slider/index.php" class="">Slider</a>
+                            </li>
+                            <li>
                                 <a href="#" class="">Noticias</a>
                             </li>
                         </ul>
@@ -81,6 +84,11 @@
                     <li class="col-12">
                         <a href="/proyecto/views/administrador/cargaAcademica/index.php" class="mb-1 mt-1">
                             Carga Académica
+                        </a>
+                    </li>
+                    <li class="col-12">
+                        <a href="/proyecto/views/administrador/mantenimiento/index.php" class="mb-1 mt-1">
+                            Mantenimiento
                         </a>
                     </li>
                     <li class="col-12 containerSubList">
@@ -128,7 +136,10 @@
             </a>
             <ul class="ps-3 mb-1 mt-1 collapseBody" style="display: none;">
                 <li>
-                    <a href="#" class="">Noticias</a>
+                    <a href="/proyecto/views/administrador/slider/index.php" class="">Slider</a>
+                </li>
+                <li>
+                    <a href="/proyecto/views/administrador/noticias/index.php" class="">Noticias</a>
                 </li>
             </ul>
         </li>
@@ -155,6 +166,11 @@
         <li class="col-12">
             <a href="/proyecto/views/administrador/cargaAcademica/index.php" class="mb-1 mt-1">
                 Carga Académica
+            </a>
+        </li>
+        <li class="col-12">
+            <a href="/proyecto/views/administrador/mantenimiento/index.php" class="mb-1 mt-1">
+                Mantenimiento
             </a>
         </li>
         <li class="col-12 containerSubList">

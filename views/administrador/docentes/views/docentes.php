@@ -88,7 +88,12 @@
                                         data-fecha_nacimiento="<?php echo $Docente['FechaNacimientoDocente'];?>"
                                         data-telefono="<?php echo $Docente['TelefonoDocente'];?>"
                                         data-email="<?php echo $Docente['CorreoElectronicoDocente'];?>"
-                                        data-contraseña="<?php echo $Docente['ContraseñaDocente'];?>"
+                                        data-contraseña="<?php 
+                                                            include_once '../../../controller/admin/seguridad.php';
+                                                            $Seguridad = new Seguridad;
+                                                            $desencriptado = $Seguridad->DesencriptarP($Docente['ContraseñaDocente']);
+                                                            echo $desencriptado;
+                                                        ?>"
                                         data-id_docente="<?php echo $Docente['IdDocente'];?>"
                                         data-materia="<?php echo str_replace('"','',json_encode($IdMaterias));?>"
 

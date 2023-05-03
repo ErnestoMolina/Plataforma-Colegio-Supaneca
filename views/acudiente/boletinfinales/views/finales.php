@@ -13,23 +13,12 @@
                         <option value="2026">2026</option>
                     </select>
                 </div>
-                <div class="col-lg-3 col-sm-12 col-md-12">
-                    <label style="color: rgb(0, 3, 44);" for="ListaGrados" class="text-start">&nbsp;Grado: </label>
-                    <select class="form-select mt-2" name="ListaGrados" id="ListaGrados" required>
-                        <option value="">Seleccione una opción</option>
-                        <?php
-                            foreach($Grados as $Grado){
-                                echo '<option value="'.$Grado['IdGrado'].'">'.$Grado['NombreGrado'].'</option>';
-                            }
-                        ?>
-                    </select>
-                </div>
             </div>
             <input type="hidden" name="accion" id="accion" value="ConsultarCalificaciones">
             <input type="hidden" name="IdUser" id="IdUser" value="<?php echo $_SESSION['Id']; ?>">
         </form>
         <hr>
-        <div class="table-responsive mt-2">
+        <div class="table-responsive mt-2" id="tab" style="display: none;">
             <table id="tabla" class="table table-light mt-3 pt-2">
                 <thead class="thead-light">
                     <tr>
@@ -39,7 +28,30 @@
                     </tr>
                 </thead>
                 <tbody id="table_estudiantes">
-                    
+                    <?php
+                        $cont = 1;
+                        $Estudiantes = [];
+                        $Estudiantes = $EstudianteCTR->ConsultarEstudiantes('E.idAcudiente = '.$_SESSION['Id']);
+                        foreach ($Estudiantes as $Estudiante){
+                    ?>
+                        <tr>
+                            <td><?php echo $cont++; ?></td>
+                            <td><?php echo $Estudiante['NombresEstudiante'].' '.$Estudiante['ApellidosEstudiante'];?></td>
+                            <td>
+                                <input type="hidden" name="idEstudiante" id="idEstudiante" value="<?php echo $Estudiante['IdEstudiante'];?>">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-primary p-1 p-1 pt-0 pb-0 VerBoletin"
+                                    data-id_estudiante="<?php echo $Estudiante['IdEstudiante'];?>"
+                                    data-grado="<?php echo $Estudiante['GradoEstudiante'];?>"
+                                >
+                                    <abbr title="Ver"><i class="bi bi-eye-fill"></i></abbr>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -102,51 +114,22 @@
         return vigencia
     }
 
-    $('#ListaGrados').change(function(){
-        const grado = $('#ListaGrados').val()
+    $('#vigencia').change(function(){
         vigencia = ValorVigencia()
         count = 1
-        console.log(grado);
-        const DataParam = {
-            'accion' : 'ConsultarEstudiantes',
-            'grado' : grado
-        }
-        const url = window.location.pathname
-        fetch(url,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(DataParam)
-        })
-        .then(response => response.json())
-        .then(result => {
+        btnVer = $('.VerBoletin')
 
-            ListaEstudiantes.html('')
-            result.map((Estudiante,index)=>{
-                html = `
-                <tr>
-                    <td>${count++}</td>
-                    <td>${Estudiante.NombresEstudiante} ${Estudiante.ApellidosEstudiante}</td>
-                    <td>
-                        <button class="btn btn-outline-primary verBoletin" title="Ver"
-                        data-id_estudiante="${Estudiante.IdEstudiante}"
-                        data-vigencia="${vigencia}"
-                        >
-                            <i class="bi-eye-fill"></i>
-                        </button>
-                    </td>
-                </tr>
-                `
-                ListaEstudiantes.append(html)
-            })
+        btnVer.attr({
+            'data-vigencia' : vigencia
         })
+        Datos = $('#tab')
+        Datos.attr("style","display: block;")
     })
     
-    $(document).on('click', '.verBoletin', function(){
+    $(document).on('click', '.VerBoletin', function(){
         const Vigencia = $(this).data('vigencia')
         const IdEstudiante = $(this).data('id_estudiante')
-        const grado = $('#ListaGrados').val()
+        const grado = $(this).data('grado')
         console.log(IdEstudiante,grado,Vigencia);
         cont = 0
         count = 0

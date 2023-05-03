@@ -49,6 +49,7 @@
             break;
             case 'consultarInasistencias':
                 $Inasistencias = $AsistenciasCTR->ConsultarInasistensiasFiltro($_POST);
+                // return $Inasistencias;
             break;
             case 'consultarGradosMateria':
                 $Grados = $DocenteCTR->consultarGradosMateria($dataRequest);

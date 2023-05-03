@@ -44,9 +44,46 @@
             return $response;
         }
         
-        public function ConsultarDocente($numeroDocumento, $ValorDocumento,$tipoDocumento,$ValorTD){
+        public function ConsultarDocente($Filtro){
             $response = [];
-            $sql = "SELECT * FROM docentes WHERE {$numeroDocumento} = {$ValorDocumento} AND {$tipoDocumento} = '{$ValorTD}'";
+            $sql = "SELECT * FROM docentes";
+            if($Filtro){
+                $sql .= " $Filtro";
+            }
+            $resultset = $this->DB->query($sql);
+         
+            if($resultset){
+                while ($row = $resultset->fetch_assoc()) {
+                    $response[] = $row;
+                }
+            }
+
+            return $response;
+        }
+
+        public function ConsultarAcudienteEditar($Filtro){
+            $response = [];
+            $sql = "SELECT * FROM acudientes";
+            if($Filtro){
+                $sql .= " $Filtro";
+            }
+            $resultset = $this->DB->query($sql);
+         
+            if($resultset){
+                while ($row = $resultset->fetch_assoc()) {
+                    $response[] = $row;
+                }
+            }
+
+            return $response;
+        }
+        
+        public function ConsultarCorreoAdmin($Filtro){
+            $response = [];
+            $sql = "SELECT * FROM administradores";
+            if($Filtro){
+                $sql .= " $Filtro";
+            }
             $resultset = $this->DB->query($sql);
          
             if($resultset){
