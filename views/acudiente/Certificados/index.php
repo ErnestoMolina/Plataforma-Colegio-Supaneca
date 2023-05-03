@@ -172,7 +172,7 @@
                 $pdf->SetFont('Arial', '', 8);
                 
                 
-                $pdf->Output('nombre_del_archivo.pdf', 'I');
+                $pdf->Output('nombre_del_archivo.pdf', 'I'); 
             break;
             case 'editarDocente':
                 $response = $DocenteCTR->EditarDocente($_POST);

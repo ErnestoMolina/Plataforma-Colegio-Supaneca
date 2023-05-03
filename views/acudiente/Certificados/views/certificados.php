@@ -44,6 +44,7 @@
                                     class="btn btn-outline-primary p-1 p-1 pt-0 pb-0 VerBoletin"
                                     data-id_estudiante="<?php echo $Estudiante['IdEstudiante'];?>"
                                     data-grado="<?php echo $Estudiante['GradoEstudiante'];?>"
+                                    data-vigencia=""
                                 >
                                     <abbr title="Ver"><i class="bi bi-eye-fill"></i></abbr>
                                 </button>
@@ -63,7 +64,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Informe de evaluación</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Acta de Calificaciones Finales</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -119,9 +120,7 @@
         count = 1
         btnVer = $('.VerBoletin')
 
-        btnVer.attr({
-            'data-vigencia' : vigencia
-        })
+        btnVer.data('vigencia', vigencia)
         Datos = $('#tab')
         Datos.attr("style","display: block;")
     })
@@ -168,6 +167,9 @@
             TablaBoletin.html('')
             if(result != ''){
                 TablaBoletin.append(htmlEncabezado)
+                $('.DescargarPdf').removeAttr('disabled',true)
+            }else{
+                $('.DescargarPdf').attr('disabled',true)
             }
             result.map((DatosBoletin,index)=>{
                 count++
@@ -262,7 +264,6 @@
                 })
                 
             })
-
         })
         // mostrar modal
         $('#ModalBoletin').modal('show')

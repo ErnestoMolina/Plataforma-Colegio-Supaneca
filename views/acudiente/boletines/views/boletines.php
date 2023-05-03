@@ -54,6 +54,7 @@
                                     class="btn btn-outline-primary p-1 p-1 pt-0 pb-0 VerBoletin"
                                     data-id_estudiante="<?php echo $Estudiante['IdEstudiante'];?>"
                                     data-grado="<?php echo $Estudiante['GradoEstudiante'];?>"
+                                    data-periodo="" data-vigencia=""
                                 >
                                     <abbr title="Ver"><i class="bi bi-eye-fill"></i></abbr>
                                 </button>
@@ -133,13 +134,11 @@
         periodo = ValorPeriodo()
         vigencia = ValorVigencia()
         count = 1
-        console.log(periodo);
+        // console.log(periodo);
         btnVer = $('.VerBoletin')
 
-        btnVer.attr({
-            'data-periodo' : periodo,
-            'data-vigencia' : vigencia
-        })
+        btnVer.data('periodo',  periodo)
+        btnVer.data('vigencia', vigencia)
         Datos = $('#tab')
         Datos.attr("style","display: block;")
     })
@@ -149,7 +148,7 @@
         const Vigencia = $(this).data('vigencia')
         const IdEstudiante = $(this).data('id_estudiante')
         const grado = $(this).data('grado')
-        console.log(Periodo,IdEstudiante,grado,Vigencia);
+        // console.log(Periodo,IdEstudiante,grado,Vigencia);
         cont = 0
         count = 0
         const DataParam = {
@@ -181,6 +180,9 @@
             TablaBoletin.html('')
             if(result != ''){
                 TablaBoletin.append(htmlEncabezado)
+                $('.DescargarPdf').removeAttr('disabled',true)
+            }else{
+                $('.DescargarPdf').attr('disabled',true)
             }
             result.map((DatosBoletin,index)=>{
                 count++

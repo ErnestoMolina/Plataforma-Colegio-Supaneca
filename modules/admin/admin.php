@@ -71,8 +71,14 @@
             TipoDocumentoAdministrador = '".$DataRow['listaDocumentosA']."',
             NDocumentoAdministrador = ".$DataRow['documentoA'].",
             FechaNacimientoAdministrador = '".$DataRow['fechaNA']."',
-            TelefonoAdministrador = '".$DataRow['telefonoA']."',
-            CorreoElectronicoAdministrador = '".$DataRow['emailA']."'
+            TelefonoAdministrador = '".$DataRow['telefonoA']."',";
+            if($DataRow['contraseñaA']){
+                include '../../../controller/admin/seguridad.php';
+                $passEncriptada = new Seguridad();
+                $contraseña = $passEncriptada->encriptarP($DataRow['contraseñaA']);
+                $sql .= " Contraseña = '".$contraseña."',";
+            }
+            $sql .= " CorreoElectronicoAdministrador = '".$DataRow['emailA']."'
             WHERE IdAdministrador = ".$DataRow['idAdmin'].";";
             
             $resultset = $this->DB->query($sql);

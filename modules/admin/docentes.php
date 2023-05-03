@@ -129,9 +129,9 @@
             
             $resultset = $this->DB->query($sql);
             if($resultset === true){
-                $response['success'] = 'Se ha agregado Exitosamente';
+                $response['success'] = 'Se ha agregado Exitosamente '.$DataRow['nombreD'].' '.$DataRow['apellidoD'];
             }else{
-                $response['Error'] = 'Error al agregar.';
+                $response['Error'] = 'Error al agregar '.$DataRow['nombreD'].' '.$DataRow['apellidoD'];
             }
 
             return $response;
@@ -147,9 +147,9 @@
             $resultset = $this->DB->query($sql);
 
             if($resultset === true){
-                $response['success'] = 'El docente ha sido eliminado exitosamente.';
+                $response['success'] = 'El docente '.$DataRow['nombreD'].' '.$DataRow['apellidoD'].' ha sido eliminado exitosamente.';
             }else{
-                $response['error'] = 'Error al eliminar al docente.';
+                $response['error'] = 'Error al eliminar al docente '.$DataRow['nombreD'].' '.$DataRow['apellidoD'];
             }
 
             return $response;
@@ -179,9 +179,9 @@
 
             $resultset = $this->DB->query($sql);
             if($resultset === true){
-                $response['success'] = 'Se ha actualizado Exitosamente';
+                $response['success'] = 'Se ha actualizado Exitosamente '.$DataRow['nombreD'].' '.$DataRow['apellidoD'];
             }else{
-                $response['Error'] = 'Lo sentimos, el numero de documento ya existe.';
+                $response['Error'] = 'Error al actualizar '.$DataRow['nombreD'].' '.$DataRow['apellidoD'];
             }
 
             return $response;
@@ -199,15 +199,21 @@
             TipoDocumentoDocente = '".$DataRow['listaDocumentosD']."',
             NDocumentoDocente = ".$DataRow['documentoD'].",
             FechaNacimientoDocente = '".$DataRow['fechaND']."',
-            TelefonoDocente = '".$DataRow['telefonoD']."',
-            CorreoElectronicoDocente = '".$DataRow['emailD']."'
+            TelefonoDocente = '".$DataRow['telefonoD']."',";
+            if($DataRow['contraseñaD']){
+                include '../../../controller/admin/seguridad.php';
+                $passEncriptada = new Seguridad();
+                $contraseña = $passEncriptada->encriptarP($DataRow['contraseñaD']);
+                $sql .= " ContraseñaDocente = '".$contraseña."',";
+            }
+            $sql .= " CorreoElectronicoDocente = '".$DataRow['emailD']."'
             WHERE IdDocente = ".$DataRow['idDocente'].";";
 
             $resultset = $this->DB->query($sql);
             if($resultset === true){
-                $response['success'] = 'Sus datos se ha actualizado Exitosamente';
+                $response['success'] = 'Sus datos se ha actualizado Exitosamente.';
             }else{
-                $response['Error'] = 'Lo sentimos, el numero de documento ya existe.';
+                $response['Error'] = 'Error al actualizar sus datos.';
             }
 
             return $response;

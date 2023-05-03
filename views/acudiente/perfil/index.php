@@ -11,7 +11,7 @@
         $accion = $_POST['accion'] ?? $dataRequest['accion'];
         switch($accion){
             case 'editarDatos':
-                $response = $AcudienteCTR->EditarAcudientePerfil($_POST);
+                $response = $AcudienteCTR->EditarAcudiente($_POST);
                 if(isset($response['error'])){
                     $mensagge = $response['error'];
                     $tipoAlert = "alert-danger";

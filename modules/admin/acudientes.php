@@ -149,9 +149,6 @@
             if(!$DataRow){
                 return ['error' => 'No se han editado los datos'];
             }
-            include '../../../controller/admin/seguridad.php';
-            $passEncriptada = new Seguridad();
-            $contraseña = $passEncriptada->encriptarP($DataRow['contraseñaA']);
 
             $sql = "UPDATE acudientes SET
             NombresAcudiente = '".$DataRow['nombreA']."',
@@ -159,9 +156,14 @@
             TipoDocumentoAcudiente = '".$DataRow['listaDocumentosA']."',
             NDocumentoAcudiente = ".$DataRow['documentoA'].",
             FechaNacimientoAcudiente = '".$DataRow['fechaNA']."',
-            TelefonoAcudiente = '".$DataRow['telefonoA']."',
-            CorreoElectronicoAcudiente = '".$DataRow['emailA']."',
-            ContraseñaAcudiente = '".$contraseña."'
+            TelefonoAcudiente = '".$DataRow['telefonoA']."',";
+            if($DataRow['contraseñaA']){
+                include '../../../controller/admin/seguridad.php';
+                $passEncriptada = new Seguridad();
+                $contraseña = $passEncriptada->encriptarP($DataRow['contraseñaA']);
+                $sql .= " ContraseñaAcudiente = '".$contraseña."',";
+            }
+            $sql .= " CorreoElectronicoAcudiente = '".$DataRow['emailA']."'
             WHERE IdAcudiente= ".$DataRow['idAcudiente'].";";
 
             $resultset = $this->DB->query($sql);
@@ -174,31 +176,5 @@
             return $response;
         }
 
-
-        public function EditarAcudientePerfil($DataRow = false){
-            $response = [];
-            if(!$DataRow){
-                return ['error' => 'No se han editado los datos'];
-            }
-
-            $sql = "UPDATE acudientes SET
-            NombresAcudiente = '".$DataRow['nombreA']."',
-            ApellidosAcudiente = '".$DataRow['apellidoA']."',
-            TipoDocumentoAcudiente = '".$DataRow['listaDocumentosA']."',
-            NDocumentoAcudiente = ".$DataRow['documentoA'].",
-            FechaNacimientoAcudiente = '".$DataRow['fechaNA']."',
-            TelefonoAcudiente = '".$DataRow['telefonoA']."',
-            CorreoElectronicoAcudiente = '".$DataRow['emailA']."'
-            WHERE IdAcudiente= ".$DataRow['idAcudiente'].";";
-
-            $resultset = $this->DB->query($sql);
-            if($resultset === true){
-                $response['success'] = 'Se ha actualizado Exitosamente';
-            }else{
-                $response['Error'] = 'Lo sentimos, el numero de documento ya existe.';
-            }
-
-            return $response;
-        }
     }
 ?>

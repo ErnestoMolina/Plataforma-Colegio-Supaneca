@@ -92,25 +92,7 @@
             }
 
             return $DataResponse;
-        }
-
-        public function EditarAcudientePerfil($DataPost = false){
-            $DataResponse;
-            if(!$DataPost){
-                return ['error' => 'No se han ingresado datos'];
-            }
-            if(isset($DataPost['idAcudiente'])){
-                // validamos si el documento del estudiante ya existe
-                $InfoAcudiente = $this->AcudientesModel->ConsultarAcudienteEditar('IdAcudiente = '.$DataPost['idAcudiente']);
-                // print_r($InfoAcudiente);die;
-                if($InfoAcudiente){
-                    $DataResponse = $this->AcudientesModel->EditarAcudientePerfil($DataPost);
-                }else{
-                    $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];
-                }
-            }
-
-            return $DataResponse;
+            // print_r($DataResponse);
         }
     }
 ?>

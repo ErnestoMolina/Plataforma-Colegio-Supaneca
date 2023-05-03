@@ -181,6 +181,9 @@
             TablaBoletin.html('')
             if(result != ''){
                 TablaBoletin.append(htmlEncabezado)
+                $('.DescargarPdf').removeAttr('disabled',true)
+            }else{
+                $('.DescargarPdf').attr('disabled',true)
             }
             result.map((DatosBoletin,index)=>{
                 count++

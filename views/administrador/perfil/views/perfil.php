@@ -109,7 +109,7 @@
                             <input type="email" class="form-control" name="emailA" id="emailA" placeholder="Ingrese telefeono" required>
                         </div>
                         <div class="col-6 mt-2">
-                            <label style="color: rgb(0, 3, 44);" for="contraseñaD" class="text-start">&nbsp;Nueva Contraseña: </label>
+                            <label style="color: rgb(0, 3, 44);" for="contraseñaA" class="text-start">&nbsp;Nueva Contraseña: </label>
                             <input type="password" class="form-control" name="contraseñaA" id="contraseñaA" placeholder="Ingrese contraseña">
                             <p id="mensajePassword"></p>
                         </div>

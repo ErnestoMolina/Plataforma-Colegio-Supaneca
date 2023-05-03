@@ -84,6 +84,7 @@
             }
 
             return $DataResponse;
+            // print_r($DataResponse);
         }
         public function EditarDocentePerfil($DataPost){
             $DataResponse;
@@ -92,16 +93,28 @@
             }
             if(isset($DataPost['idDocente'])){
                 // validamos si el documento del Docente ya existe
-                $InfoDocente = $this->DocentesModel->ConsultarDocente('IdDocente', $DataPost['idDocente'],'TipoDocumentoDocente',$DataPost['listaDocumentosD']);
-
-                if($InfoDocente){
+                $InfoDocenteDocumento = $this->DocentesModel->ConsultarDocente('WHERE NDocumentoDocente = "'.$DataPost['documentoD'].'" AND TipoDocumentoDocente = "'.$DataPost['listaDocumentosD'].'" AND IdDocente NOT LIKE '.$DataPost['idDocente']);
+                $InfoAcudienteEmail = $this->DocentesModel->ConsultarAcudienteEditar('WHERE CorreoElectronicoAcudiente = "'.$DataPost['emailD'].'"');
+                $InfoDocenteEmail = $this->DocentesModel->ConsultarDocente('WHERE CorreoElectronicoDocente = "'.$DataPost['emailD'].'" AND IdDocente NOT LIKE '.$DataPost['idDocente']);
+                $InfoAdminEmail = $this->DocentesModel->ConsultarCorreoAdmin('WHERE CorreoElectronicoAdministrador = "'.$DataPost['emailD'].'"');
+                // print_r($InfoDocenteDocumento);
+                // echo '<br>';
+                // print_r($InfoAcudienteEmail);
+                // echo '<br>';
+                // print_r($InfoDocenteEmail);
+                // echo'<br>';
+                // print_r($InfoAdminEmail);die;
+                if(empty($InfoDocenteDocumento) && empty($InfoAcudienteEmail) && empty($InfoDocenteEmail) && empty($InfoAdminEmail)){
                     $DataResponse = $this->DocentesModel->EditarDocentePerfil($DataPost);
-                }else{
-                    $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];
+                }elseif(!empty($InfoDocenteDocumento)){
+                    $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe'];
+                }elseif(!empty($InfoAcudienteEmail) || !empty($InfoDocenteEmail) || !empty($InfoAdminEmail)){
+                    $DataResponse = ['error' => 'Lo sentimos, el correo electronico ya esta siendo usado.'];
                 }
             }
 
             return $DataResponse;
+            // print_r($DataResponse);
         }
     }
 ?>
