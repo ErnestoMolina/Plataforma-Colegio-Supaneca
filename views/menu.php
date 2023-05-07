@@ -3,6 +3,7 @@
             <a href="#" class="navbar-brand m-0">
                 <img src="./img/escudoSinFondo.png" alt="Logo de la institución" class="rounded-circle" width="50px">
             </a>
+            <p class="text-white mt-3 ms-2 nombreInstitucional"> Institucion Educativa Supaneca</p>
             <button class="navbar-toggler" type="button" 
             data-bs-toggle="collapse" data-bs-target="#colNav">
                 <span class="navbar-toggler-icon"></span>
@@ -25,7 +26,7 @@
                         </ul>
                     </li>
                     <li class="nav-item text-white ms-1 me-1">
-                        <a href="#" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#derecho">Login</a>
+                        <a href="#" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#derecho">Iniciar sesión</a>
                     </li>
                 </ul>
             </div>

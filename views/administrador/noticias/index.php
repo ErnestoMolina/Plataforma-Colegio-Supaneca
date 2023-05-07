@@ -35,7 +35,6 @@
                     $archivo = $_FILES['imagen'];
                     // print_r($archivo);
                     
-                    $nombre = 'Noticia';
                     $nombre = 'Noticia'.time();
                     $ruta_temporal = $archivo['tmp_name'];
                     $Tipo = $archivo['type'];

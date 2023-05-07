@@ -4,7 +4,10 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#izquierda" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="#" class="navbar-brand">
+            <a href="#" class="navbar-brand m-0">
+                <img src="/proyecto/img/escudoSinFondo.png" alt="Logo de la institución" class="rounded-circle" width="50px">
+            </a>
+            <a href="#" class="navbar-brand ms-2 nombreInstitucional">
                 Institucion Educativa Supaneca
             </a>
             <div class="collapse navbar-collapse" id="colNav">
@@ -123,7 +126,7 @@
         </div>
     </div>
 <!-- Menu lateral -->
-<div class="col-2 p-10 containerSidebar d-none d-sm-block"  id="Menu">
+<div class="col-lg-2 col-md-3 p-10 containerSidebar d-none d-sm-block"  id="Menu">
     <ul class="col-12 p-0">
         <li class="col-12">
             <a href="../index.php" class="mb-1 mt-1">

@@ -323,7 +323,7 @@
             $response = [];
             $Historial = str_replace(",", "-", $DataPost['HistorialNotas']);
             $Historial = substr($Historial, 1);
-            $sql = "INSERT INTO definitivasaño (IdGrado, IdMateria, IdEstudiante, Desempeño, Calificacion, HitorialNotas)
+            $sql = "INSERT INTO definitivasaño (IdGrado, IdMateria, IdEstudiante, Desempeño, Calificacion, HistorialNotas)
             VALUES ({$DataPost['IdGrado']}, {$DataPost['IdMateria']}, {$DataPost['IdEstudiante']}, '{$DataPost['desempeñoDefinitiva']}', {$DataPost['definitiva']}, '$Historial')";
             
             $resultset = $this->DB->query($sql);

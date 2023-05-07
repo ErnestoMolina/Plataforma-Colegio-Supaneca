@@ -1,4 +1,4 @@
-<div class="col-10 containerSection">
+<div class="col-lg-10 col-md-9 containerSection">
     <h1 id="tt">Acta de Calificaciones Finales</h1>
     <div class="container mt-3 mb-3">
         <form action="/proyecto/views/docente/calificaciones/index.php" id="FormConsultaNotas" method="POST">

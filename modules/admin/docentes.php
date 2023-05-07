@@ -147,9 +147,9 @@
             $resultset = $this->DB->query($sql);
 
             if($resultset === true){
-                $response['success'] = 'El docente '.$DataRow['nombreD'].' '.$DataRow['apellidoD'].' ha sido eliminado exitosamente.';
+                $response['success'] = 'El docente ha sido eliminado exitosamente.';
             }else{
-                $response['error'] = 'Error al eliminar al docente '.$DataRow['nombreD'].' '.$DataRow['apellidoD'];
+                $response['error'] = 'Error al eliminar al docente.';
             }
 
             return $response;

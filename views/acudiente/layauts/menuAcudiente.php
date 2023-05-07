@@ -4,7 +4,10 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#izquierda" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="#" class="navbar-brand">
+            <a href="#" class="navbar-brand m-0">
+                <img src="/proyecto/img/escudoSinFondo.png" alt="Logo de la institución" class="rounded-circle" width="50px">
+            </a>
+            <a href="#" class="navbar-brand ms-2 nombreInstitucional">
                 Institucion Educativa Supaneca
             </a>
             <div class="collapse navbar-collapse" id="colNav">

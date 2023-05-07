@@ -1,4 +1,4 @@
-<div class="col-10 containerSection">
+<div class="col-lg-10 col-md-9 containerSection">
     <h1>Inasistencias</h1>
     <div class="row">
         <div class="col-lg-10 col-md-9 col-sm-12" id="containerAlert">

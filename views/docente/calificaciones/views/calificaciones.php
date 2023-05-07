@@ -1,21 +1,27 @@
-<div class="col-10 containerSection">
+<div class="col-lg-10 col-md-9 containerSection">
     <h1>Consultar calificaciones</h1>
     <div class="row">
-        <div class="col-lg-12 col-md-4 col-sm-12 text-end">
+        <div class="col-lg-3 col-md-6 col-sm-3 text-center mt-2">
             <!-- Boton del modal definitiva final año -->
-            <button type="button" class="btn btn-info text-white" id="btnDefinitivaAño" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalDefinitivaAño">
+            <button type="button" class="btn w-75 text-white" id="btnDefinitivaAño" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalDefinitivaAño">
                 <i class="bi bi-pencil-square"></i> Definitiva Año
             </button>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-3 text-center mt-2">
             <!-- Boton del modal definitiva -->
-            <button type="button" class="btn btn-warning text-white" id="btnDefinitiva" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalDefinitiva">
+            <button type="button" class="btn w-75 text-white" id="btnDefinitiva" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalDefinitiva">
                 <i class="bi bi-pencil-square"></i> Definitiva
             </button>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-3 text-center mt-2">
             <!-- Boton del modal observaciones -->
-            <button type="button" class="btn btn-primary" id="btnObservaciones" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalObservaciones">
+            <button type="button" class="btn w-75" id="btnObservaciones" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalObservaciones">
                 <i class="bi bi-pencil-square"></i> Observaciones
             </button>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-3 text-center mt-2">
             <!-- Boton del modal porcentajes -->
-            <button type="button" class="btn btn-success" id="ModalPorcentaje" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalPorcentajes">
+            <button type="button" class="btn w-75" id="ModalPorcentaje" style="display: none;" data-bs-toggle="modal" data-bs-target="#ModalPorcentajes">
                 <i class="bi bi-pencil-square"></i> Porcentaje
             </button>
         </div>
@@ -521,9 +527,20 @@
         promedioEvaluaciones = 0
 
         btnDefinitiva = $('#btnDefinitiva')
-        btnDefinitiva.attr("style","display: inline-flex;")
+        btnDefinitiva.css({
+            "display": "initial",
+            "background-color": "slategrey",
+            "border-color": "slategrey",
+            "color": "white"
+        })
+
         btnDefinitivaAño = $('#btnDefinitivaAño')
-        btnDefinitivaAño.attr("style","display: inline-flex;")
+        btnDefinitivaAño.css({
+            "display": "initial",
+            "background-color": "teal",
+            "border-color": "teal",
+            "color": "white"
+        })
         
         const DataParam = {
             'accion': 'ConsultarCalificaciones',
@@ -871,10 +888,20 @@
         // IdUsuario = $('#IdUser').val()
 
         btnPorcentejes = $('#ModalPorcentaje')
-        btnPorcentejes.attr("style","display: inline-flex;")
+        btnPorcentejes.css({
+            "display": "initial",
+            "background-color": "seagreen",
+            "border-color": "seagreen",
+            "color": "white"
+        })
         
         btnObservaciones = $('#btnObservaciones')
-        btnObservaciones.attr("style","display: inline-flex;")
+        btnObservaciones.css({
+            "display": "initial",
+            "background-color": "teal",
+            "border-color": "teal",
+            "color": "white"
+        })
         
         const DataParam = {
             'accion': 'CargarEstudiantes',

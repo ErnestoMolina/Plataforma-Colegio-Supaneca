@@ -69,7 +69,7 @@
                             $response = ['error' => 'Error al guardar el archivo.'];
                         }
                     }else{
-                        $response = ['error' => 'El archivo seleccionado no es una imagen válida. Por favor, selecciona una imagen en formato JPEG, PNG o GIF.'];
+                        $response = ['error' => 'El archivo seleccionado no es una imagen válida. Por favor, selecciona una imagen en formato JPEG, PNG o JPG.'];
                     }
                     if(isset($response['error'])){
                         $mensagge = $response['error'];

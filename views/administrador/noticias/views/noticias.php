@@ -1,4 +1,4 @@
-<div class="col-10 containerSection">
+<div class="col-lg-10 col-md-9 containerSection">
     <h1>Noticias</h1>
     <div class="row">
         <div class="col-lg-10 col-md-9 col-sm-12" id="containerAlert">
@@ -42,7 +42,7 @@
                     <?php
                         $cont = 0;
                         if(isset($Noticias)){
-                            $Noticias = array_reverse($Noticias, true);
+                            // $Noticias = array_reverse($Noticias, true);
                             foreach ($Noticias as $Noticia){
                                 $cont++;
                                 echo '<tr id="fila'.$cont.'">'

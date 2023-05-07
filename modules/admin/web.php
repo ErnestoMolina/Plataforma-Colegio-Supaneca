@@ -25,8 +25,9 @@
 
         public function ConsultarNoticias($Filtro = false){
             $response = [];
-            $sql = "SELECT * FROM noticias";
+            $sql = "SELECT * FROM noticias ORDER BY Fecha DESC";
             if($Filtro != ''){
+                $sql = str_replace("ORDER BY Fecha DESC","",$sql);
                 $sql .= " WHERE {$Filtro};";
             }
             $resultset = $this->DB->query($sql);
