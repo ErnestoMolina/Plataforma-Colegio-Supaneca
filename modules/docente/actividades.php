@@ -153,5 +153,29 @@
             }
             return $response;
         }
+
+        public function DepurarDefinitivas($DataPost){
+            $response = [];
+            $sql = "TRUNCATE TABLE definitivas";
+            $result = $this->DB->query($sql);
+            if($result === true){
+                $response = ['success' => 'Se han depurado las actividades Exitosamente'];
+            }else{
+                $response = ['error' => 'No se han depurado las actividades'];
+            }
+            return $response;
+        }
+
+        public function DepurarCalificaciones($DataPost){
+            $response = [];
+            $sql = "TRUNCATE TABLE calificaciones";
+            $result = $this->DB->query($sql);
+            if($result === true){
+                $response = ['success' => 'Se han depurado las actividades Exitosamente'];
+            }else{
+                $response = ['error' => 'No se han depurado las actividades'];
+            }
+            return $response;
+        }
     }
 ?>

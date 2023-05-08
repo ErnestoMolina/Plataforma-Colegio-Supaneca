@@ -66,9 +66,9 @@
             return $response;
         }
         
-        public function ConsultarEstudiante($numeroDocumento, $ValorDocumento,$tipoDocumento,$ValorTD){
+        public function ConsultarEstudiante($numeroDocumento, $ValorDocumento,$tipoDocumento,$ValorTD,$idEstudiante){
             $response = [];
-            $sql = "SELECT * FROM estudiantes WHERE {$numeroDocumento} = {$ValorDocumento} AND {$tipoDocumento} = '{$ValorTD}'";
+            $sql = "SELECT * FROM estudiantes WHERE {$numeroDocumento} = {$ValorDocumento} AND {$tipoDocumento} = '{$ValorTD}' AND IdDocente NOT LIKE '.$idEstudiante";
             $resultset = $this->DB->query($sql);
          
             if($resultset){

@@ -27,6 +27,8 @@
         <button type="button" class="btn btn-danger" id="DepurarActividades">Depurar</button>
         <p class="mt-5">2. Eliminar Calificaciones (Tareas, talleres y evaluaciones.) creadas en el año lectivo.</p>
         <button type="button" class="btn btn-danger" id="DepurarCalificaciones">Depurar</button>
+        <p class="mt-5">2. Eliminar definitivas de los periodos creadas en el año lectivo.</p>
+        <button type="button" class="btn btn-danger" id="DepurarDefinitivas">Depurar</button>
     </div>
 
 </div>
@@ -34,6 +36,36 @@
 <script>
     const url = window.location.pathname;
         
+    $('#DepurarDefinitivas').on('click', function(){
+        if(confirm('¿Seguro quiere eliminar las definitivas?')){
+            DataParam = {
+                'accion' : 'DepurarDefinitivas'
+            }
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(DataParam)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                let msg = '';
+                if(result.error){
+                    msg = `<div id="AlertEstudiante" class="alert alert-danger">${result.error}</div>`
+                }else if(result.success){
+                    msg = `<div id="AlertEstudiante" class="alert alert-success">${result.success}</div>`
+                }
+
+                $('#containerAlert').html(msg)
+                setTimeout(() => {
+                    $('#AlertEstudiante').slideUp(100)
+                    location.reload();
+                }, 3000);
+            })
+        }
+    })
     $('#DepurarCalificaciones').on('click', function(){
         if(confirm('¿Seguro quiere eliminar las calificaciones?')){
             DataParam = {

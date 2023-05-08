@@ -55,8 +55,9 @@
             }
             if(isset($DataPost['idEstudiante'])){
                 // validamos si el documento del estudiante ya existe
-                $InfoEstudiante = $this->EstudiantesModel->ConsultarEstudiante('NDocumentoEstudiante', $DataPost['documentoE'],'TipoDocumentoEstudiante',$DataPost['listaDocumentosE']);
-                if($InfoEstudiante){
+                $InfoEstudiante = $this->EstudiantesModel->ConsultarEstudiante('NDocumentoEstudiante', $DataPost['documentoE'],'TipoDocumentoEstudiante',$DataPost['listaDocumentosE'],$DataPost['idEstudiante']);
+                // print_r($InfoEstudiante);die;
+                if(!$InfoEstudiante){
                     $DataResponse = $this->EstudiantesModel->EditarEstudiante($DataPost);
                 }else{
                     $DataResponse = ['error' => 'Lo sentimos, el numero de documento ya existe.'];

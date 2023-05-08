@@ -82,5 +82,13 @@
         public function DepurarActividades($DataPost){
             return $this->ActividadesModel->DepurarActividades($DataPost);
         }
+        
+        public function DepurarDefinitivas($DataPost){
+            return $this->ActividadesModel->DepurarDefinitivas($DataPost);
+        }
+
+        public function DepurarCalificaciones($DataPost){
+            return $this->ActividadesModel->DepurarCalificaciones($DataPost);
+        }
     }
 ?>

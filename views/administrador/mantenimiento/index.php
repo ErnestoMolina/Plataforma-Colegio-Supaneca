@@ -22,6 +22,11 @@
                 echo $response = json_encode($response);
                 return false;
             break;
+            case 'DepurarDefinitivas':
+                $response = $ActividadesCTR->DepurarDefinitivas($dataRequest);
+                echo $response = json_encode($response);
+                return false;
+            break;
 
         }
     }
