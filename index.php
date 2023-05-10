@@ -10,7 +10,7 @@
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1; // página actual
     $offset = ($current_page - 1) * $limit; // valor OFFSET para la consulta
     $MostrarNoticias = $WebModel->NoticiasPaginacion($limit,$offset);
-    // print_r($Imagenes);
+    // print_r($MostrarNoticias);
     
 ?>
 <!DOCTYPE html>
@@ -131,15 +131,15 @@ data-bs-spy="scroll" data-bs-offset="50" dat-bs-target="navbar">
                     <?php
                         foreach($MostrarNoticias as $Noticia){
                     ?>
-                    <div class="col-md-6 col-lg-4 mt-2 noticia">
+                    <div class="col-md-6 col-lg-4 mt-2 mb-2 noticia">
                         <div class="card" style="width: 100%;">
                             <div class="card-header">
                                 <img src="<?= $Noticia['Imagen'];?>" class="card-img imagenNoticia w-100">
-                                <h5 class="mt-1" style="text-decoration: underline rgb(0, 3, 122)  3px;"><strong><?= $Noticia['Titulo'];?></strong></h5>
+                                <h6 class="mt-1" style="text-decoration: underline rgb(0, 3, 122)  3px;"><strong><?= $Noticia['Titulo'];?></strong></h6>
                                 <div class="descripcionNoticia">
                                     <p><?= $Noticia['Descripcion'];?></p>
                                 </div>
-                                <p class="fechaNoticia"><strong>Publicado: <?= $Noticia['Fecha'];?></strong></p>
+                                <p class="fechaNoticia" style="font-size: 12px;"><strong>Publicado: <?= $Noticia['Fecha'];?></strong></p>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ data-bs-spy="scroll" data-bs-offset="50" dat-bs-target="navbar">
                         }
                     ?>
                 </div>
-                <div class="d-flex justify-content-center" id="pagination">
+                <div class="d-flex justify-content-center mt-2" id="pagination">
                     <?php
                         for ($i = 1; $i <= $total_pages; $i++) {
                             echo '<a type="button" id="page'.$i.'" class="btn btn-dark m-1 paginacion"

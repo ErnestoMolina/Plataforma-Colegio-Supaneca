@@ -11,7 +11,7 @@
             <div class="collapse navbar-collapse" id="colNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item active ms-1 me-1" aria-current="page">
-                        <a href="#inicio" class="nav-link">Inicio</a>
+                        <a href="/proyecto/index.php" class="nav-link">Inicio</a>
                     </li>
                     <li class="nav-item text-white ms-1 me-1">
                         <a href="#noticias" class="nav-link">Noticias</a>
@@ -21,7 +21,7 @@
                             Nosotros
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" id="dropdown" aria-labelledby="navbarDropdown">
-                            <li><a href="#" class="dropdown-item">Directiva.</a></li>
+                            <li><a href="/proyecto/historia.php" class="dropdown-item">Historia.</a></li>
                             <li><a href="/proyecto/media/documentos/manual_de_convivencia.pdf" target="_black" hr class="dropdown-item">Manual de convivencia.</a></li>
                         </ul>
                     </li>
